@@ -1,0 +1,22 @@
+<div id="search-hiking-association-container">
+    <form id="search-form">
+        <div class="search-container">
+            <input type="text" id="search-term" name="search-term" placeholder="Upišite naziv planinarskog društva..." class="search">
+        </div>
+
+        <p>ILI</p>
+
+        <div class="select-container">
+            <select id="city" name="city" class="selectize">
+                <option value="">-- Odaberite grad --</option>
+                {% for city in cities %}
+                    <option value="{{ city.id }}">{{ city.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="submit-container">
+            <button id="submit-search-hiking-association" type="button" class="submit-button">PRETRAŽI</button>
+        </div>
+    </form>
+</div>

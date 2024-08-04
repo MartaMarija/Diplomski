@@ -1,0 +1,36 @@
+<header class="navbar">
+    <div class="navbar-logo">
+        {% if hikingAssociation is defined %}
+            <a href="#"><img src="logo.png" alt="Logo"></a>
+            <p id="hiking">123</p>
+            {# ovo je empty i tek kad user odabere MA, ažurirat će se taj ID i ažurirat će se navigacija #}
+        {% else %}
+            <p>PRETRAŽIVANJE DRUŠTVA</p>
+        {% endif %}
+    </div>
+
+    {% if hikingAssociation is defined %}
+        <nav class="navbar-menu">
+            <ul>
+                <li><a href="#about-us">O NAMA</a></li>
+                <li><a href="#contact">KONTAKT</a></li>
+                <li><a href="#excursion">IZLETI</a></li>
+            </ul>
+        </nav>
+    {% endif %}
+
+    <div class="navbar-auth">
+        {% if app.user %}
+            <a href="#profile" class="auth-link profile">PROFIL</a>
+            <a href="#logout" class="auth-link logout">ODJAVA</a>
+        {% else %}
+            <a href="#login" class="auth-link login">PRIJAVA</a>
+            <a href="#register" class="auth-link register">REGISTRACIJA</a>
+        {% endif %}
+
+        {% if hikingAssociation is defined %}
+            <a href="#search" class="auth-link register">ODABIR DRUŠTVA</a>
+            {# ako user ode na pretraživanje, treba opet switchati view #}
+        {% endif %}
+    </div>
+</header>

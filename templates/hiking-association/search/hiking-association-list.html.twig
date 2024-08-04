@@ -1,0 +1,12 @@
+{% for hikingAssociation in hikingAssociations %}
+    <img src="{{ hikingAssociation.logo.getThumbnail("LogoSearch").getAsFormat("webp") }}">
+    <p>{{ hikingAssociation.id }}</p>
+    <p>{{ hikingAssociation.name }}</p><br>
+{% endfor %}
+
+{% if hikingAssociations is empty %}
+    <p>Nije pronađeno nijedno planinarsko društvo.</p>
+{% else %}
+    {% include "utils/pagination-nav.html.twig" %}
+{% endif %}
+

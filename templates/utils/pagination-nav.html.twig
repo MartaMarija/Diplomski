@@ -1,0 +1,14 @@
+{% set disableFirst = currentPage == 1 ? 'disabled' : '' %}
+{% set disableLast = currentPage == totalPageCount ? 'disabled' : '' %}
+
+<div class="pagination-nav">
+    <p id="first-page" class="{{ disableFirst }}">1</p>
+    <div id="previous-page" class="arrow-div {{ disableFirst }}">
+        <i class="fa fa-arrow-left arrow-icon"></i>
+    </div>
+    <p id="current-page" class="disabled">{{ currentPage }}</p>
+    <div id="next-page" class="arrow-div {{ disableLast }}">
+        <i class="fa fa-arrow-right arrow-icon"></i>
+    </div>
+    <p id="last-page" class="{{ disableLast }}">{{ totalPageCount }}</p>
+</div>
