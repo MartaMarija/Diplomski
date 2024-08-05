@@ -3,6 +3,13 @@ imports:
 
 
 pimcore:
+    # https://pimcore.com/docs/platform/Pimcore/Development_Tools_and_Details/Security_Authentication/Authenticate_Pimcore_Objects
+    models:
+        class_overrides:
+            'Pimcore\Model\DataObject\Member': 'App\Model\Member'
+    security:
+        password_hasher_factories:
+            App\Model\Member: security.pimcore.password_hasher_factory
 
 # IMPORTANT Notice!
 # Following there are only some examples listed, for a full list of possible options, please run the following command:

@@ -1,0 +1,22 @@
+<div id="loginContainer">
+    <form id="loginForm" action="{{ path('login_check') }}" method="post">
+        <div class="labelAndInputContainer">
+            <label class="label" id="emailLabel" for="email">EMAIL</label>
+            <input class="input" type="email" id="email" name="email"  required="required" placeholder="Email..." value="{{ last_email }}">
+        </div>
+        <div class="labelAndInputContainer">
+            <label class="label" id="passwordLabel" for="password">LOZINKA</label>
+            <input class="input" type="password" id="password" name="password" required="required" placeholder="Lozinka...">
+        </div>
+        <div id="rememberMeContainer">
+            <input type="checkbox" id="rememberMe" name="_remember_me">
+            <label for="rememberMe">Zapamti me</label>
+        </div>
+        {% if error is defined and error is not empty %}
+            <p class="formError">{{ error.message|default('')|trans }}</p>
+        {% endif %}
+        <div>
+            <button id="loginButton" type="submit">PRIJAVI SE</button>
+        </div>
+    </form>
+</div>

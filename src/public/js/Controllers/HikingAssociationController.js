@@ -16,7 +16,7 @@ export class HikingAssociationController extends BaseController {
 
     onInit() {
         this.loadHikingAssociationForm()
-        this.addEventListeners();
+        this.addEventListeners()
     }
 
     loadHikingAssociationForm() {

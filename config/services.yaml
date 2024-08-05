@@ -83,3 +83,13 @@ services:
     # App\EventListener\TestListener:
     #     tags:
     #         - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: onObjectPreUpdate }
+
+    security.member_provider:
+        class: Pimcore\Security\User\ObjectUserProvider
+        arguments: [ 'App\Model\Member', 'email' ]
+
+    security.pimcore.password_hasher_factory:
+        class: Pimcore\Security\Hasher\Factory\UserAwarePasswordHasherFactory
+        arguments:
+            - Pimcore\Security\Hasher\PasswordFieldHasher
+            - [ 'password' ]

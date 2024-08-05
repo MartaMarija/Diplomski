@@ -1,0 +1,36 @@
+pimcore:
+    assets:
+        image:
+            thumbnails:
+                definitions:
+                    LogoSearch:
+                        items:
+                            -
+                                method: roundCorners
+                                arguments:
+                                    width: 20
+                                    height: 20
+                            -
+                                method: scaleByHeight
+                                arguments:
+                                    height: 300
+                                    forceResize: false
+                            -
+                                method: scaleByWidth
+                                arguments:
+                                    width: 300
+                                    forceResize: false
+                        medias: {  }
+                        name: LogoSearch
+                        description: ''
+                        group: ''
+                        format: SOURCE
+                        quality: 85
+                        highResolution: null
+                        preserveColor: false
+                        preserveMetaData: false
+                        rasterizeSVG: false
+                        downloadable: false
+                        modificationDate: 1722802879
+                        creationDate: 1722802686
+                        preserveAnimation: false

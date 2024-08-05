@@ -9,8 +9,8 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class DefaultController extends FrontendController {
 
-    #[Route('/')]
-    public function defaultAction(Request $request): Response
+    #[Route('/', name: 'default')]
+    public function defaultAction(): Response
     {
         return $this->render('default/default.html.twig');
     }    
