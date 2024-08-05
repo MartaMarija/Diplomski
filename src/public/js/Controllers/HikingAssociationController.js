@@ -21,7 +21,7 @@ export class HikingAssociationController extends BaseController {
 
     loadHikingAssociationForm() {
         this.hikingAssociationService.loadHikingAssociationForm().then((response) => {
-            let html = response.data.data.html_string
+            let html = JSON.parse(response.data.data.html_string)
             this.replaceView(html)
             this.setMainElement($('#hiking-association-list'))
         });
@@ -65,7 +65,7 @@ export class HikingAssociationController extends BaseController {
         }
 
         this.hikingAssociationService.loadHikingAssociations(routeParams).then((response) => {
-            let html = response.data.data.html_string
+            let html = JSON.parse(response.data.data.html_string)
             this.getMainElement.html('')
             this.replaceView(html)
         });

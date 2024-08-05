@@ -16,6 +16,7 @@
     "pimcore/perspective-editor": "^1.7",
     "pimcore/pimcore": "11.2.5",
     "symfony/dotenv": "^6.2",
+    "symfony/form": "^7.1",
     "symfony/runtime": "^6.2"
   },
   "require-dev": {

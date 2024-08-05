@@ -26,7 +26,7 @@ class HikingAssociationController extends BaseController
             'cities' => (new Listing())->getObjects(),
         ]);
 
-        return $this->respondWithSuccess(['html_string' => $htmlString]);
+        return $this->respondWithSuccess(['html_string' => json_encode($htmlString)]);
     }
 
     #[Route('/hiking-association/search', name: 'hiking_association_search', methods: ['GET'])]
@@ -50,6 +50,6 @@ class HikingAssociationController extends BaseController
             'currentPage' => $page,
         ]);
 
-        return $this->respondWithSuccess(['html_string' => $htmlString]);
+        return $this->respondWithSuccess(['html_string' => json_encode($htmlString)]);
     }
 }

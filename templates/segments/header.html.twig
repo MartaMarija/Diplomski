@@ -21,15 +21,15 @@
 
     <div class="navbar-auth">
         {% if app.user %}
-            <a href="#profile" class="auth-link profile">PROFIL</a>
-            <a href="#logout" class="auth-link logout">ODJAVA</a>
+            <a href="#profile" class="auth-link">PROFIL</a>
+            <a href="logout" class="auth-link">ODJAVA</a>
         {% else %}
-            <a href="#login" class="auth-link login">PRIJAVA</a>
-            <a href="#register" class="auth-link register">REGISTRACIJA</a>
+            <a role="button" id="nav-login" class="auth-link">PRIJAVA</a>
+            <a role="button" id="nav-register" class="auth-link">REGISTRACIJA</a>
         {% endif %}
 
         {% if hikingAssociation is defined %}
-            <a href="#search" class="auth-link register">ODABIR DRUŠTVA</a>
+            <a href="#search" class="auth-link">ODABIR DRUŠTVA</a>
             {# ako user ode na pretraživanje, treba opet switchati view #}
         {% endif %}
     </div>

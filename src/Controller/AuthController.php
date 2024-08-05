@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\FormType\MemberFormType;
+use App\Model\Member;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -23,7 +25,7 @@ class AuthController extends BaseController
             'error' => $error,
         ]);
 
-        return $this->respondWithSuccess(['html_string' => $htmlString]);
+        return $this->respondWithSuccess(['html_string' => json_encode($htmlString)]);
     }
 
     #[Route('/login-check', name: 'login_check')]
@@ -41,12 +43,36 @@ class AuthController extends BaseController
             'error' => $error,
         ]);
 
-        return $this->respondWithSuccess(['html_string' => $htmlString]);
+        return $this->respondWithSuccess(['html_string' => json_encode($htmlString)]);
     }
 
     #[Route('/logout', name: 'logout')]
     public function logout(): void
     {
         // controller can be blank: it will never be called!
+    }
+
+    #[Route('/registration', name: 'registration')]
+    public function registration(Request $request)
+    {
+        if (!$this->isAjaxRequest($request)) {
+            return $this->getMainFrameView();
+        }
+
+        $form = $this->createForm(MemberFormType::class, new Member());
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Member $member */
+            $member = $form->getData();
+
+            return $this->redirectToRoute('login');
+        }
+
+        $htmlString = $this->renderView('auth/registration.html.twig', [
+            'form' => $form->createView(),
+        ]);
+
+        return $this->respondWithSuccess(['html_string' => json_encode($htmlString)]);
     }
 }

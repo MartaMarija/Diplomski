@@ -19,7 +19,7 @@ export class LoginController extends BaseController {
 
     loadLoginForm() {
         this.loginService.loadLoginForm().then((response) => {
-            let html = response.data.data.html_string
+            let html = JSON.parse(response.data.data.html_string)
             this.replaceView(html)
         });
     }

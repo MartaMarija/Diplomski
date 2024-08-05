@@ -2,6 +2,7 @@ import Navigo from 'navigo';
 import {Router} from './Router/Router'
 import {HikingAssociationController} from "./Controllers/HikingAssociationController";
 import {LoginController} from "./Controllers/LoginController";
+import {RegistrationController} from "./Controllers/RegistrationController";
 
 $(function() {
     const Navigator = new Navigo('/')
@@ -22,6 +23,13 @@ $(function() {
                 Routing.onInit(match.url)
             },
         },
+        '/registration': {
+            as: 'RegistrationController',
+            uses: (match) => {
+                Routing.switchRoute(RegistrationController)
+                Routing.onInit(match.url)
+            },
+        }
     })
 
     if (Navigator.match(Navigator.getCurrentLocation().url)) {

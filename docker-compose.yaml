@@ -2,6 +2,8 @@ services:
     redis:
         image: redis:alpine
         command: [ redis-server, --maxmemory 128mb, --maxmemory-policy volatile-lru, --save "" ]
+        ports:
+            - "6379:6379"
 
     db:
         image: mariadb:10.11
@@ -55,15 +57,15 @@ services:
         volumes:
             - .:/var/www/html
 
-    supervisord:
-        user: '1000:1000' # set to your uid:gid
-        image: pimcore/pimcore:php8.2-supervisord-latest
-        depends_on:
-            db:
-                condition: service_healthy
-        volumes:
-            - .:/var/www/html
-            - ./.docker/supervisord.conf:/etc/supervisor/conf.d/pimcore.conf:ro
+#    supervisord:
+#        user: '1000:1000' # set to your uid:gid
+#        image: pimcore/pimcore:php8.2-supervisord-latest
+#        depends_on:
+#            db:
+#                condition: service_healthy
+#        volumes:
+#            - .:/var/www/html
+#            - ./.docker/supervisord.conf:/etc/supervisor/conf.d/pimcore.conf:ro
 
 volumes:
     pimcore-database:

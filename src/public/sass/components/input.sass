@@ -1,0 +1,64 @@
+.label-input-container-up, .label-input-container-side
+    margin-bottom: 10px
+
+.label-input-container
+    &-up
+        display: flex
+        flex-direction: column
+
+    &-side
+        display: grid
+        grid-template-columns: 180px 1fr
+
+.label, .label-side
+    font-size: 18px
+    margin-bottom: 8px
+    color: $primary-color
+    font-weight: 600
+
+    &-side
+        display: flex
+        align-items: center
+        padding-right: 10px
+
+.label
+    padding-left: 7px
+
+.input
+    border: 2px solid $primary-color
+    border-radius: 10px
+    font-size: 18px
+    padding: 10px 12px
+    width: 320px
+    background: white
+    margin-bottom: 10px
+
+.input:focus,
+.input:hover
+    color: $secondary-color
+    background-color: $primary-color
+    outline: none
+
+.input-error, .input-error-side
+    font-size: smaller
+    color: $error-color
+
+.input-error
+    margin-top: 15px
+
+.input-error-side
+    margin-bottom: 15px
+
+/* Problem: input changes color by itself on autofill -> this is the solution */
+input:-webkit-autofill
+    -webkit-box-shadow: 0 0 0 50px $secondary-color inset
+    -webkit-text-fill-color: black
+
+
+input:-webkit-autofill:focus
+    -webkit-box-shadow: 0 0 0 50px $primary-color inset
+    -webkit-text-fill-color: $secondary-color
+
+::placeholder
+    color: gainsboro
+    font-size: 17px
