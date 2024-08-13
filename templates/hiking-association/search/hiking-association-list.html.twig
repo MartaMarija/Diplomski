@@ -1,7 +1,7 @@
 {% for hikingAssociation in hikingAssociations %}
     <img src="{{ hikingAssociation.logo.getThumbnail("LogoSearch").getAsFormat("webp") }}">
-    <p>{{ hikingAssociation.id }}</p>
-    <p>{{ hikingAssociation.name }}</p><br>
+{#    <p data-id="{{ hikingAssociation.id }}">{{ hikingAssociation.name }}</p>#}
+    <a href="{{ path('hiking_association', { 'hikingAssociation': hikingAssociation.id }) }}">{{ hikingAssociation.name }}</a>
 {% endfor %}
 
 {% if hikingAssociations is empty %}

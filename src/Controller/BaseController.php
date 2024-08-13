@@ -37,7 +37,7 @@ class BaseController extends FrontendController
         return new JsonResponse($response, $status_code, $headers);
     }
 
-    public function getMainFrameView(): Response
+    public function getMainFrameView($hikingAssociationId = null): Response
     {
         return $this->render('default/default.html.twig');
     }

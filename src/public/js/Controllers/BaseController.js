@@ -1,6 +1,6 @@
 export class BaseController {
     constructor() {
-        this.mainElement = null
+        this.mainElement = "#main-content"
     }
 
     replaceView (html = '') {
@@ -12,8 +12,6 @@ export class BaseController {
     destroy () {
         if (this.getMainElement) {
             this.getMainElement.html('')
-            this.getMainElement.off()
-            this.setMainElement(null)
         }
     }
 

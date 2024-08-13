@@ -11,63 +11,27 @@ export class HikingAssociationController extends BaseController {
     constructor(HikingAssociationService) {
         super();
         this.hikingAssociationService = HikingAssociationService
-        this.page = 1
     }
 
-    onInit() {
-        this.loadHikingAssociationForm()
+    onInit(match) {
+        this.hikingAssociationId = match.data.hikingAssociation;
         this.addEventListeners()
     }
 
-    loadHikingAssociationForm() {
-        this.hikingAssociationService.loadHikingAssociationForm().then((response) => {
-            let html = JSON.parse(response.data.data.html_string)
-            this.replaceView(html)
-            this.setMainElement($('#hiking-association-list'))
-        });
-    }
 
     addEventListeners() {
-        $(document).on('click', '#submit-search-hiking-association', () => {
-            this.loadHikingAssociations()
-        })
-
-        $(document).on('click', '#first-page:not(.disabled)', () => {
-            this.loadHikingAssociations()
-        })
-
-        $(document).on('click', '#previous-page:not(.disabled)', () => {
-            let currentPage = parseInt($('#current-page').html())
-            this.loadHikingAssociations(currentPage - 1)
-        })
-
-        $(document).on('click', '#next-page:not(.disabled)', () => {
-            let currentPage = parseInt($('#current-page').html())
-            this.loadHikingAssociations(currentPage + 1)
-        })
-
-        $(document).on('click', '#last-page:not(.disabled)', () => {
-            let lastPage = parseInt($('#last-page').html())
-            this.loadHikingAssociations(lastPage)
-        })
+        this.loadHikingAssociationTrips()
     }
 
-    loadHikingAssociations(page = 1) {
-        let searchTerm = $('#search-term').val()
-        let city = $('#city').val()
-
-        let routeParams = `&page=${page}`;
-        if (searchTerm) {
-            routeParams += `&searchTerm=${encodeURIComponent(searchTerm)}`;
-        }
-        if (city) {
-            routeParams += `&city=${encodeURIComponent(city)}`;
-        }
-
-        this.hikingAssociationService.loadHikingAssociations(routeParams).then((response) => {
+    loadHikingAssociationTrips() {
+        this.hikingAssociationService.loadHikingAssociationTrips(this.hikingAssociationId).then((response) => {
             let html = JSON.parse(response.data.data.html_string)
+            this.setMainElement($('#main-content'))
             this.getMainElement.html('')
             this.replaceView(html)
+
+            // localStorage.setItem('hikingAssociationId', hikingAssociationId);
+            // toggleMenuChange()
         });
     }
 }

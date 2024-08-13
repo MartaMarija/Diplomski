@@ -1,36 +1,31 @@
 <header class="navbar">
     <div class="navbar-logo">
-        {% if hikingAssociation is defined %}
-            <a href="#"><img src="logo.png" alt="Logo"></a>
-            <p id="hiking">123</p>
-            {# ovo je empty i tek kad user odabere MA, ažurirat će se taj ID i ažurirat će se navigacija #}
+        {% if hikingAssociationId is not empty %}
+            <a href="#"><img src="/Split.jpg" alt="Logo"></a>
+{#            TODO naziv društva inline#}
+{#            <p id="hiking">123</p>#}
         {% else %}
-            <p>PRETRAŽIVANJE DRUŠTVA</p>
+            <a href="{{ path('default') }}" data-navigo>PRETRAŽIVANJE DRUŠTVA</a>
         {% endif %}
     </div>
 
-    {% if hikingAssociation is defined %}
-        <nav class="navbar-menu">
-            <ul>
-                <li><a href="#about-us">O NAMA</a></li>
-                <li><a href="#contact">KONTAKT</a></li>
-                <li><a href="#excursion">IZLETI</a></li>
-            </ul>
-        </nav>
-    {% endif %}
+    <nav class="navbar-menu-hiking-association navbar-menu">
+        {% if hikingAssociationId is not empty %}
+            {% include "segments/hiking-association-nav.html.twig" with {'hikingAssociationId': hikingAssociationId} %}
+        {% endif %}
+    </nav>
 
     <div class="navbar-auth">
         {% if app.user %}
-            <a href="#profile" class="auth-link">PROFIL</a>
-            <a href="logout" class="auth-link">ODJAVA</a>
+            <a href="#profile">PROFIL</a>
+            <a href="logout">ODJAVA</a>
         {% else %}
-            <a role="button" id="nav-login" class="auth-link">PRIJAVA</a>
-            <a role="button" id="nav-register" class="auth-link">REGISTRACIJA</a>
+            <a href="{{ path('login', {ajax: 'true'}) }}" data-navigo>PRIJAVA</a>
+            <a href="{{ path('registration', {ajax: 'true'}) }}" data-navigo>REGISTRACIJA</a>
         {% endif %}
 
-        {% if hikingAssociation is defined %}
-            <a href="#search" class="auth-link">ODABIR DRUŠTVA</a>
-            {# ako user ode na pretraživanje, treba opet switchati view #}
+        {% if hikingAssociationId is not empty %}
+            <a href="{{ path('default') }}" data-navigo>PRETRAŽIVANJE DRUŠTVA</a>
         {% endif %}
     </div>
 </header>
