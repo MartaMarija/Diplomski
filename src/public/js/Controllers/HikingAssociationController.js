@@ -1,6 +1,7 @@
 import {HikingAssociationService} from "../Services/HikingAssociationService";
 import {Inject} from "injection-js";
 import {BaseController} from "./BaseController";
+import {toggleMenuChange} from "../Utils/utils";
 
 export class HikingAssociationController extends BaseController {
 
@@ -30,8 +31,8 @@ export class HikingAssociationController extends BaseController {
             this.getMainElement.html('')
             this.replaceView(html)
 
-            // localStorage.setItem('hikingAssociationId', hikingAssociationId);
-            // toggleMenuChange()
+            localStorage.setItem('hikingAssociationId', this.hikingAssociationId);
+            toggleMenuChange()
         });
     }
 }

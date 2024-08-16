@@ -1,6 +1,7 @@
 import {HikingAssociationService} from "../Services/HikingAssociationService";
 import {Inject} from "injection-js";
 import {BaseController} from "./BaseController";
+import {toggleMenuChange} from "../Utils/utils";
 
 export class HikingAssociationSearchController extends BaseController {
 
@@ -15,6 +16,9 @@ export class HikingAssociationSearchController extends BaseController {
     }
 
     onInit() {
+        console.log(1234);
+        localStorage.removeItem('hikingAssociationId')
+        toggleMenuChange()
         this.loadHikingAssociationForm()
         this.addEventListeners()
     }
