@@ -7,7 +7,7 @@
  * Fields Summary:
  * - Name [input]
  * - Description [textarea]
- * - MountaineeringAssociation [manyToOneRelation]
+ * - HikingAssociation [manyToOneRelation]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -17,7 +17,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1722796064,
+   'modificationDate' => 1723821454,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -117,8 +117,8 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           )),
           2 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-             'name' => 'MountaineeringAssociation',
-             'title' => 'Mountaineering Association',
+             'name' => 'HikingAssociation',
+             'title' => 'Hiking Association',
              'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,
@@ -138,7 +138,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             array (
               0 => 
               array (
-                'classes' => 'MountaineeringAssociation',
+                'classes' => 'HikingAssociation',
               ),
             ),
              'displayMode' => 'grid',
@@ -214,36 +214,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
-    0 => 
-    \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-       'name' => 'Title',
-       'title' => 'Title',
-       'tooltip' => '',
-       'mandatory' => false,
-       'noteditable' => false,
-       'index' => false,
-       'locked' => false,
-       'style' => '',
-       'permissions' => NULL,
-       'fieldtype' => '',
-       'relationType' => false,
-       'invisible' => false,
-       'visibleGridView' => false,
-       'visibleSearch' => false,
-       'blockedVarsForExport' => 
-      array (
-      ),
-       'defaultValue' => NULL,
-       'columnLength' => 190,
-       'regex' => '',
-       'regexFlags' => 
-      array (
-      ),
-       'unique' => false,
-       'showCharCount' => false,
-       'width' => 500,
-       'defaultValueGenerator' => '',
-    )),
   ),
    'blockedVarsForExport' => 
   array (

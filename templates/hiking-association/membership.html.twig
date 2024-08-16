@@ -1,0 +1,10 @@
+{% for membershipDetail in membershipDetails %}
+    <p>{{ membershipDetail.membershipType.name }}</p>
+    <p>{{ membershipDetail.price.value }} {{ membershipDetail.price.unit }}</p>
+
+    <br>
+{% endfor %}
+
+{% if membershipDetails is empty %}
+    <p>Nije pronađena nijedna uputa za učlanjivanje u planinarsko društvo {{ hikingAssociation.name }}.</p>
+{% endif %}

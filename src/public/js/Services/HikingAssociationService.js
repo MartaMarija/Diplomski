@@ -10,7 +10,7 @@ export class HikingAssociationService {
         return await axios.get(`/hiking-association/search?ajax=true${routeParams}`)
     }
 
-    async loadHikingAssociationTrips(hikingAssociationId) {
-        return await axios.get(`/hiking-association/${hikingAssociationId}/trips`)
+    async loadHikingAssociationData(hikingAssociationId, route) {
+        return await axios.get(`/hiking-association/${hikingAssociationId}/${route}?ajax=true`)
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Pimcore\Controller\FrontendController;
+use Pimcore\Model\DataObject\HikingAssociation;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,9 +38,11 @@ class BaseController extends FrontendController
         return new JsonResponse($response, $status_code, $headers);
     }
 
-    public function getMainFrameView($hikingAssociationId = null): Response
+    public function getMainFrameView(HikingAssociation $hikingAssociation = null): Response
     {
-        return $this->render('default/default.html.twig');
+        return $this->render('default/default.html.twig', [
+            'hikingAssociation' => $hikingAssociation
+        ]);
     }
 
     public function isAjaxRequest(Request $request): bool

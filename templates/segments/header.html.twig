@@ -1,6 +1,6 @@
 <header class="navbar">
     <div class="navbar-logo">
-        {% if hikingAssociationId is not empty %}
+        {% if hikingAssociation is not empty %}
             <a href="#" class="hiking-association-exists"><img src="/Split.jpg" alt="Logo"></a>
 {#            TODO naziv društva inline#}
 {#            <p id="hiking">123</p>#}
@@ -9,8 +9,8 @@
     </div>
 
     <nav class="navbar-menu-hiking-association navbar-menu hiking-association-exists">
-        {% if hikingAssociationId is not empty %}
-            {% include "segments/hiking-association-nav.html.twig" with {'hikingAssociationId': hikingAssociationId} %}
+        {% if hikingAssociation is not empty %}
+            {% include "segments/hiking-association-nav.html.twig" with {'hikingAssociation': hikingAssociation} %}
         {% endif %}
     </nav>
 
@@ -19,11 +19,11 @@
             <a href="#profile">PROFIL</a>
             <a href="logout">ODJAVA</a>
         {% else %}
-            <a href="{{ path('login', {ajax: 'true'}) }}" data-navigo>PRIJAVA</a>
-            <a href="{{ path('registration', {ajax: 'true'}) }}" data-navigo>REGISTRACIJA</a>
+            <a href="{{ path('login') }}" data-navigo>PRIJAVA</a>
+            <a href="{{ path('registration') }}" data-navigo>REGISTRACIJA</a>
         {% endif %}
 
-        {% if hikingAssociationId is not empty %}
+        {% if hikingAssociation is not empty %}
             <a href="{{ path('default') }}" class="hiking-association-exists" data-navigo>PRETRAŽIVANJE DRUŠTVA</a>
         {% endif %}
     </div>

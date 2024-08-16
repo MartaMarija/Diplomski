@@ -1,0 +1,10 @@
+{% for contactInformation in contactsInformation %}
+    <p>{{ contactInformation.contactType }}</p>
+    <p>{{ contactInformation.contactDetails }}</p>
+
+    <br>
+{% endfor %}
+
+{% if contactsInformation is empty %}
+    <p>Nije pronađen nijedna kontakt za planinarsko društvo {{ hikingAssociation.name }}.</p>
+{% endif %}

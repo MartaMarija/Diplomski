@@ -1,0 +1,7 @@
+{% for guide in guides %}
+    <p>{{ guide.firstName }} {{ guide.lastName }}</p>
+{% endfor %}
+
+{% if guides is empty %}
+    <p>Nije pronađen nijedn vodič za planinarsko društvo {{ hikingAssociation.name }}.</p>
+{% endif %}

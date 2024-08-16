@@ -70,7 +70,7 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
               1 => 
               array (
                 'key' => 'Broj telefona',
-                'value' => 'Guide Certificates',
+                'value' => 'Broj telefona',
               ),
               2 => 
               array (
@@ -79,8 +79,8 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
               ),
               3 => 
               array (
-                'key' => '',
-                'value' => '',
+                'key' => 'Adresa',
+                'value' => 'Adresa',
               ),
             ),
              'defaultValue' => '',
@@ -119,7 +119,7 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
             ),
              'unique' => false,
              'showCharCount' => false,
-             'width' => 200,
+             'width' => 500,
              'defaultValueGenerator' => '',
           )),
         ),

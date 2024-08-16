@@ -16,9 +16,6 @@ export class HikingAssociationSearchController extends BaseController {
     }
 
     onInit() {
-        console.log(1234);
-        localStorage.removeItem('hikingAssociationId')
-        toggleMenuChange()
         this.loadHikingAssociationForm()
         this.addEventListeners()
     }

@@ -6,6 +6,8 @@ import {LoginService} from "../Services/LoginService";
 import {RegistrationController} from "../Controllers/RegistrationController";
 import {RegistrationService} from "../Services/RegistrationService";
 import {HikingAssociationController} from "../Controllers/HikingAssociationController";
+import {SectionService} from "../Services/SectionService";
+import {SectionController} from "../Controllers/SectionController";
 
 export class DependencyInjection {
     constructor() {
@@ -16,7 +18,9 @@ export class DependencyInjection {
             LoginService,
             RegistrationController,
             RegistrationService,
-            HikingAssociationController
+            HikingAssociationController,
+            SectionController,
+            SectionService
         ]);
     }
 }

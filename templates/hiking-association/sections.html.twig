@@ -1,0 +1,8 @@
+{% for section in sections %}
+    <a href="{{ path('sections_single', { 'section': section.id }) }}" data-navigo>{{ section.name }}</a>
+{% endfor %}
+
+{% if sections is empty %}
+    <p>Nije pronađena nijedna sekcija za planinarsko društvo {{ hikingAssociation.name }}.</p>
+{% endif %}
+

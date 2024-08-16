@@ -2,13 +2,14 @@
 
 namespace App\Controller;
 
+use App\Repository\GuideRepository;
 use App\Repository\HikingAssociationRepository;
+use App\Repository\SectionRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Pimcore\Model\DataObject\City\Listing;
 use Pimcore\Model\DataObject\HikingAssociation;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
 class HikingAssociationController extends BaseController
@@ -17,12 +18,14 @@ class HikingAssociationController extends BaseController
     public function __construct(
         private HikingAssociationRepository $hikingAssociationRepository,
         private PaginatorInterface $paginator,
+        private SectionRepository $sectionRepository,
+        private GuideRepository $guideRepository,
     )
     {
     }
 
     #[Route('/hiking-association/search-form', name: 'hiking_association_search_form', methods: ['GET'])]
-    public function form(Request $request): JsonResponse
+    public function form(Request $request): Response
     {
         $htmlString = $this->renderView('hiking-association/search/hiking-association-view.html.twig', [
             'cities' => (new Listing())->getObjects(),
@@ -32,7 +35,7 @@ class HikingAssociationController extends BaseController
     }
 
     #[Route('/hiking-association/search', name: 'hiking_association_search', methods: ['GET'])]
-    public function search(Request $request): JsonResponse
+    public function search(Request $request): Response
     {
         $searchTerm = $request->get('searchTerm');
         $cityId = $request->get('city');
@@ -56,16 +59,18 @@ class HikingAssociationController extends BaseController
     }
 
     #[Route('/hiking-association/{hikingAssociation}', name: 'hiking_association')]
-    public function nav(Request $request, string $hikingAssociation): Response
+    public function nav(HikingAssociation $hikingAssociation): Response
     {
-        return $this->render('default/default.html.twig', [
-            'hikingAssociationId' => $hikingAssociation,
-        ]);
+        return $this->getMainFrameView($hikingAssociation);
     }
 
     #[Route('/hiking-association/{hikingAssociation}/info', name: 'hiking_association_info')]
-    public function info(HikingAssociation $hikingAssociation): JsonResponse
+    public function info(Request $request, HikingAssociation $hikingAssociation): Response
     {
+        if (!$this->isAjaxRequest($request)) {
+            return $this->getMainFrameView($hikingAssociation);
+        }
+
         $htmlString = $this->renderView('hiking-association/info.html.twig', [
             'hikingAssociation' => $hikingAssociation,
         ]);
@@ -74,29 +79,30 @@ class HikingAssociationController extends BaseController
     }
 
     #[Route('/hiking-association/{hikingAssociation}/sections', name: 'hiking_association_sections')]
-    public function sections(HikingAssociation $hikingAssociation): JsonResponse
+    public function sections(Request $request, HikingAssociation $hikingAssociation): Response
     {
+        if (!$this->isAjaxRequest($request)) {
+            return $this->getMainFrameView($hikingAssociation);
+        }
+
+        $sections = $this->sectionRepository->getSectionsByHikingAssociation($hikingAssociation);
+
         $htmlString = $this->renderView('hiking-association/sections.html.twig', [
             'hikingAssociation' => $hikingAssociation,
+            'sections' => $sections,
         ]);
 
         return $this->respondWithSuccess(['html_string' => json_encode($htmlString)]);
     }
 
-    #[Route('/hiking-association/{hikingAssociation}/contact', name: 'hiking_association_contact')]
-    public function contact(HikingAssociation $hikingAssociation): JsonResponse
+    #[Route('/hiking-association/{hikingAssociation}/trips', name: 'hiking_association_trips')]
+    public function trips(Request $request, HikingAssociation $hikingAssociation): Response
     {
-        $htmlString = $this->renderView('hiking-association/contact.html.twig', [
-            'hikingAssociation' => $hikingAssociation,
-        ]);
+        if (!$this->isAjaxRequest($request)) {
+            return $this->getMainFrameView($hikingAssociation);
+        }
 
-        return $this->respondWithSuccess(['html_string' => json_encode($htmlString)]);
-    }
-
-    #[Route('/hiking-association/{hikingAssociation}/guides', name: 'hiking_association_guides')]
-    public function guides(HikingAssociation $hikingAssociation): JsonResponse
-    {
-        $htmlString = $this->renderView('hiking-association/guides.html.twig', [
+        $htmlString = $this->renderView('hiking-association/trips.html.twig', [
             'hikingAssociation' => $hikingAssociation,
         ]);
 
@@ -104,8 +110,12 @@ class HikingAssociationController extends BaseController
     }
 
     #[Route('/hiking-association/{hikingAssociation}/news', name: 'hiking_association_news')]
-    public function news(HikingAssociation $hikingAssociation): JsonResponse
+    public function news(Request $request, HikingAssociation $hikingAssociation): Response
     {
+        if (!$this->isAjaxRequest($request)) {
+            return $this->getMainFrameView($hikingAssociation);
+        }
+
         $htmlString = $this->renderView('hiking-association/news.html.twig', [
             'hikingAssociation' => $hikingAssociation,
         ]);
@@ -113,11 +123,48 @@ class HikingAssociationController extends BaseController
         return $this->respondWithSuccess(['html_string' => json_encode($htmlString)]);
     }
 
-    #[Route('/hiking-association/{hikingAssociation}/trips', name: 'hiking_association_trips')]
-    public function trips(HikingAssociation $hikingAssociation): JsonResponse
+    #[Route('/hiking-association/{hikingAssociation}/guides', name: 'hiking_association_guides')]
+    public function guides(Request $request, HikingAssociation $hikingAssociation): Response
     {
-        $htmlString = $this->renderView('hiking-association/trips.html.twig', [
+        if (!$this->isAjaxRequest($request)) {
+            return $this->getMainFrameView($hikingAssociation);
+        }
+
+        $guides = $this->guideRepository->getGuidesByHikingAssociation($hikingAssociation);
+
+        $htmlString = $this->renderView('hiking-association/guides.html.twig', [
             'hikingAssociation' => $hikingAssociation,
+            'guides' => $guides
+        ]);
+
+        return $this->respondWithSuccess(['html_string' => json_encode($htmlString)]);
+    }
+
+    #[Route('/hiking-association/{hikingAssociation}/membership', name: 'hiking_association_membership')]
+    public function membership(Request $request, HikingAssociation $hikingAssociation): Response
+    {
+        if (!$this->isAjaxRequest($request)) {
+            return $this->getMainFrameView($hikingAssociation);
+        }
+
+        $htmlString = $this->renderView('hiking-association/membership.html.twig', [
+            'hikingAssociation' => $hikingAssociation,
+            'membershipDetails' => $hikingAssociation->getMembershipDetails()->getItems()
+        ]);
+
+        return $this->respondWithSuccess(['html_string' => json_encode($htmlString)]);
+    }
+
+    #[Route('/hiking-association/{hikingAssociation}/contact', name: 'hiking_association_contact')]
+    public function contact(Request $request, HikingAssociation $hikingAssociation): Response
+    {
+        if (!$this->isAjaxRequest($request)) {
+            return $this->getMainFrameView($hikingAssociation);
+        }
+
+        $htmlString = $this->renderView('hiking-association/contact.html.twig', [
+            'hikingAssociation' => $hikingAssociation,
+            'contactsInformation' => $hikingAssociation->getContactInformation()->getItems()
         ]);
 
         return $this->respondWithSuccess(['html_string' => json_encode($htmlString)]);

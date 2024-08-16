@@ -1,13 +1,9 @@
 <ul>
-{#    <li><a href="{{ path('hiking_association_info', { 'hikingAssociation': hikingAssociationId }) }}">O NAMA</a></li>#}
-{#    <li><a href="{{ path('hiking_association_sections', { 'hikingAssociation': hikingAssociationId }) }}">SEKCIJE</a></li>#}
-{#    <li><a href="{{ path('hiking_association_trips', { 'hikingAssociation': hikingAssociationId }) }}">IZLETI</a></li>#}
-{#    <li><a href="{{ path('hiking_association_news', { 'hikingAssociation': hikingAssociationId }) }}">VIJESTI</a></li>#}
-{#    <li><a href="{{ path('hiking_association_guides', { 'hikingAssociation': hikingAssociationId }) }}">VODIČI</a></li>#}
-    <li><a role="button" id="info">O NAMA</a></li>
-    <li><a role="button" id="sections">SEKCIJE</a></li>
-    <li><a role="button" id="trips">IZLETI</a></li>
-    <li><a role="button" id="news">VIJESTI</a></li>
-    <li><a role="button" id="guides">VODIČI</a></li>
-    <li><a role="button" id="contact">KONTAKT</a></li>
+    <li><a href="{{ path('hiking_association_info', { 'hikingAssociation': hikingAssociation.id }) }}" data-navigo>O NAMA</a></li>
+    <li><a href="{{ path('hiking_association_sections', { 'hikingAssociation': hikingAssociation.id }) }}" data-navigo>SEKCIJE</a></li>
+    <li><a href="{{ path('hiking_association_trips', { 'hikingAssociation': hikingAssociation.id }) }}" data-navigo>IZLETI</a></li>
+    <li><a href="{{ path('hiking_association_news', { 'hikingAssociation': hikingAssociation.id }) }}" data-navigo>VIJESTI</a></li>
+    <li><a href="{{ path('hiking_association_guides', { 'hikingAssociation': hikingAssociation.id }) }}" data-navigo>VODIČI</a></li>
+    <li><a href="{{ path('hiking_association_membership', { 'hikingAssociation': hikingAssociation.id }) }}" data-navigo>UČLANJIVANJE</a></li>
+    <li><a href="{{ path('hiking_association_contact', { 'hikingAssociation': hikingAssociation.id }) }}" data-navigo>KONTAKT</a></li>
 </ul>
