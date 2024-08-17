@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\FormType\PaymentFormType;
 use App\FormType\TripFilter;
 use App\Repository\CityRepository;
 use App\Repository\GuideRepository;
@@ -10,6 +11,10 @@ use App\Repository\SectionRepository;
 use App\Repository\TripRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Pimcore\Model\DataObject\HikingAssociation;
+use Pimcore\Model\DataObject\Member;
+use Pimcore\Model\DataObject\Payment;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
@@ -24,6 +29,7 @@ class HikingAssociationController extends BaseController
         private GuideRepository $guideRepository,
         private CityRepository $cityRepository,
         private TripRepository $tripRepository,
+        private Security $security,
     )
     {
     }
@@ -190,9 +196,35 @@ class HikingAssociationController extends BaseController
             return $this->getMainFrameView($hikingAssociation);
         }
 
+        $form = $this->createForm(PaymentFormType::class, new Payment());
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Payment $payment */
+            $payment = $form->getData();
+
+            $email = $this->security->getUser()->getUserIdentifier();
+            $member = Member::getByEmail($email)->getObjects()[0];
+
+            $payment->setMember($member);
+            $payment->setPaymentObject($hikingAssociation);
+            $payment->setDescription('Članarina');
+
+            /** @var UploadedFile[] $files */
+            $file = $form['File']->getData();
+
+            if ($payment->getPaymentType() === 'Uplatnica' && empty($file)) {
+                dd('error');
+            }
+
+            dd($payment);
+        }
+
         $htmlString = $this->renderView('hiking-association/membership.html.twig', [
             'hikingAssociation' => $hikingAssociation,
-            'membershipDetails' => $hikingAssociation->getMembershipDetails()->getItems()
+            'membershipDetails' => $hikingAssociation->getMembershipDetails()->getItems(),
+            'form' => $form->createView()
         ]);
 
         return $this->respondWithSuccess(['html_string' => json_encode($htmlString)]);
