@@ -13,6 +13,7 @@ export class BaseController {
         if (this.getMainElement) {
             this.getMainElement.html('')
         }
+        this.removeEventListeners()
     }
 
     get getMainElement () {
@@ -21,5 +22,9 @@ export class BaseController {
 
     setMainElement (mainElement) {
         this.mainElement = mainElement
+    }
+
+    removeEventListeners() {
+        $(document).unbind()
     }
 }

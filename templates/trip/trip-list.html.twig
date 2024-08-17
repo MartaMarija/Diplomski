@@ -1,0 +1,26 @@
+<table id="trips-list-table" class="display">
+    <thead>
+    <tr>
+        <th>NAZIV</th>
+        <th>SEKCIJA</th>
+        <th>DATUM POLASKA</th>
+        <th>LOKACIJA</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for trip in trips %}
+        <tr>
+            <td><a href="{{ path('trips_single', { 'trip': trip.id }) }}" data-navigo>{{ trip.name }}</a></td>
+            <td><p>{{ trip.section.name|default('-') }}</p></td>
+            <td><p>{{ trip.startDate|date('d.m.Y. H:i') }}</p></td>
+            <td><p>{{ trip.locationName }}</p></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% if trips is empty %}
+    <p style="margin-top: 20px">Nije pronađen nijedan izlet za planinarsko društvo {{ hikingAssociation.name }}.</p>
+{% else %}
+    {% include "utils/pagination-nav.html.twig" %}
+{% endif %}

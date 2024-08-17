@@ -7,11 +7,25 @@
                 <div class="label-input-container-side">
                     {{ form_label(form.FirstName, null, { 'label_attr': { 'class': 'label-side' } }) }}
                     {{ form_widget(form.FirstName) }}
+
+                    <p></p>
+                    <p class="input-error-side">
+                        {% for error in form.FirstName.vars.errors %}
+                            * {{ error.message|trans }}
+                        {% endfor %}
+                    </p>
                 </div>
 
                 <div class="label-input-container-side">
                     {{ form_label(form.LastName, null, { 'label_attr': { 'class': 'label-side' } }) }}
                     {{ form_widget(form.LastName) }}
+
+                    <p></p>
+                    <p class="input-error-side">
+                        {% for error in form.LastName.vars.errors %}
+                            * {{ error.message|trans }}
+                        {% endfor %}
+                    </p>
                 </div>
 
                 <div class="label-input-container-side">

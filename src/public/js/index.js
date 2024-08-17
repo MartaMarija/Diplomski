@@ -58,7 +58,7 @@ $(function() {
             as: 'HikingAssociationController',
             uses: (match) => {
                 Routing.switchRoute(HikingAssociationController)
-                Routing.onInit({match: match, route: "trips"})
+                Routing.onInit({match: match, route: "trips", navigo: Navigator})
             },
         },
         '/hiking-association/:hikingAssociation/:route': {

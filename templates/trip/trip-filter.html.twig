@@ -1,0 +1,31 @@
+<form id="trip-filter-form" method="post">
+    {{ form_start(form) }}
+    <div class="trip-form-style">
+
+        <div class="label-input-container-up">
+            {{ form_label(form.Name, null, { 'label_attr': { 'class': 'label' } }) }}
+            {{ form_widget(form.Name, { 'attr': { 'class': 'selectize wider-selectize' } }) }}
+        </div>
+
+        <div class="label-input-container-up">
+            {{ form_label(form.Section, null, { 'label_attr': { 'class': 'label' } }) }}
+            {{ form_widget(form.Section, { 'attr': { 'class': 'selectize wider-selectize' } }) }}
+        </div>
+
+        <div class="label-input-container-up">
+            {{ form_label(form.Type, null, { 'label_attr': { 'class': 'label' } }) }}
+            {{ form_widget(form.Type, { 'attr': { 'class': 'selectize wider-selectize' } }) }}
+        </div>
+
+        <div class="label-input-container-up">
+            {{ form_label(form.StartDate, null, { 'label_attr': { 'class': 'label' } }) }}
+            {{ form_widget(form.StartDate, { 'attr': { 'class': 'selectize wider-selectize' } }) }}
+        </div>
+
+        <div class="label-input-container-up">
+            {{ form_label(form.StartDateSort, null, { 'label_attr': { 'class': 'label' } }) }}
+            {{ form_widget(form.StartDateSort, { 'attr': { 'class': 'selectize wider-selectize' } }) }}
+        </div>
+    </div>
+    {{ form_end(form) }}
+</form>

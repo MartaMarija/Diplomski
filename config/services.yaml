@@ -93,3 +93,10 @@ services:
         arguments:
             - Pimcore\Security\Hasher\PasswordFieldHasher
             - [ 'password' ]
+
+    App\Security\Voter\MemberVoter:
+        tags: [ 'security.voter' ]
+
+    App\FormType\:
+        resource: '../src/FormType/*'
+        tags: [ 'form.type' ]

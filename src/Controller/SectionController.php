@@ -13,7 +13,7 @@ class SectionController extends BaseController
     public function section(Request $request, Section $section): Response
     {
         if (!$this->isAjaxRequest($request)) {
-            return $this->getMainFrameView($section->getHikigAssociation());
+            return $this->getMainFrameView($section->getHikingAssociation());
         }
 
         $htmlString = $this->renderView('section/section.html.twig', [

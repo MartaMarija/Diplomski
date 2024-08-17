@@ -48,6 +48,8 @@ security:
         - { path: ^/admin, roles: ROLE_PIMCORE_USER }
         - { path: ^/asset/webdav, roles: ROLE_PIMCORE_USER }
 
+        - { path: ^/my-profile, roles: IS_AUTHENTICATED_FULLY }
+
     role_hierarchy:
         # Pimcore admin  // DO NOT CHANGE!
         ROLE_PIMCORE_ADMIN: [ROLE_PIMCORE_USER]

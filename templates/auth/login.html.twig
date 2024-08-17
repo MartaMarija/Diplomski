@@ -13,7 +13,7 @@
             <label for="remember-me">Zapamti me</label>
         </div>
         {% if error is defined and error is not empty %}
-            <p class="input-error">{{ error.message|default('')|trans }}</p>
+            <p class="input-error">* {{ error.message|default('')|trans }}</p>
         {% endif %}
         <div>
             <button id="login-button" type="submit">PRIJAVI SE</button>
