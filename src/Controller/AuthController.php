@@ -4,12 +4,19 @@ namespace App\Controller;
 
 use App\FormType\MemberFormType;
 use App\Model\Member;
+use App\Repository\MemberRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class AuthController extends BaseController
 {
+    public function __construct(
+        private MemberRepository $memberRepository,
+    )
+    {
+    }
+
     #[Route('/login', name: 'login')]
     public function login(Request $request, AuthenticationUtils $authenticationUtils)
     {
@@ -65,8 +72,9 @@ class AuthController extends BaseController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var Member $member */
             $member = $form->getData();
+            $this->memberRepository->createMember($member);
 
-            return $this->redirectToRoute('login');
+            return $this->respondWithSuccess(['redirectUrl' => $this->generateUrl('login')]);
         }
 
         $htmlString = $this->renderView('auth/registration.html.twig', [

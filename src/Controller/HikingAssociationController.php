@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\CityRepository;
 use App\Repository\GuideRepository;
 use App\Repository\HikingAssociationRepository;
 use App\Repository\SectionRepository;
@@ -20,6 +21,7 @@ class HikingAssociationController extends BaseController
         private PaginatorInterface $paginator,
         private SectionRepository $sectionRepository,
         private GuideRepository $guideRepository,
+        private CityRepository $cityRepository,
     )
     {
     }
@@ -28,7 +30,7 @@ class HikingAssociationController extends BaseController
     public function form(Request $request): Response
     {
         $htmlString = $this->renderView('hiking-association/search/hiking-association-view.html.twig', [
-            'cities' => (new Listing())->getObjects(),
+            'cities' => $this->cityRepository->getCitiesWithHikingAssociations(),
         ]);
 
         return $this->respondWithSuccess(['html_string' => json_encode($htmlString)]);

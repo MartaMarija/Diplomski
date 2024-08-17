@@ -20,7 +20,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1722855652,
+   'modificationDate' => 1723893258,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -161,7 +161,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'unsigned' => true,
                  'minValue' => NULL,
                  'maxValue' => NULL,
-                 'unique' => true,
+                 'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
                  'width' => 300,
@@ -371,31 +371,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
-    0 => 
-    \Pimcore\Model\DataObject\ClassDefinition\Data\Password::__set_state(array(
-       'name' => 'Password',
-       'title' => 'Password',
-       'tooltip' => '',
-       'mandatory' => false,
-       'noteditable' => false,
-       'index' => false,
-       'locked' => false,
-       'style' => '',
-       'permissions' => NULL,
-       'fieldtype' => '',
-       'relationType' => false,
-       'invisible' => false,
-       'visibleGridView' => false,
-       'visibleSearch' => false,
-       'blockedVarsForExport' => 
-      array (
-      ),
-       'algorithm' => 'password_hash',
-       'salt' => '',
-       'saltlocation' => 'back',
-       'minimumLength' => NULL,
-       'width' => '',
-    )),
   ),
    'blockedVarsForExport' => 
   array (

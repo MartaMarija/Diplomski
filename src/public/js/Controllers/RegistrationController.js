@@ -15,6 +15,7 @@ export class RegistrationController extends BaseController {
     }
 
     onInit() {
+        this.destroy()
         this.loadRegistrationForm()
         this.addEventListeners()
     }
@@ -33,10 +34,11 @@ export class RegistrationController extends BaseController {
             const formData = new FormData(e.target);
             this.registrationService.submitMemberForm(formData).then(response => {
                 console.log(response)
-                if (response.redirected) {
-                    window.location.href = response.url;
+                if (response.data.data.redirectUrl) {
+                    window.location.href = response.data.data.redirectUrl;
                 } else {
                     let html = JSON.parse(response.data.data.html_string)
+                    this.getMainElement.html('')
                     this.replaceView(html)
                 }
             })

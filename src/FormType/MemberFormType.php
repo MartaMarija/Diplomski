@@ -2,6 +2,7 @@
 
 namespace App\FormType;
 
+use App\RequestValidation\Constraint\UniqueEmail;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -50,6 +51,9 @@ class MemberFormType extends AbstractType
             ->add('email', EmailType::class, [
                 'label' => 'EMAIL',
                 'required' => true,
+                'constraints' => [
+                    new UniqueEmail(),
+                ],
                 'attr' => [
                     'placeholder' => 'mail@example.com',
                     'class' => 'input',
