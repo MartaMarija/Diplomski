@@ -6,6 +6,7 @@ import {RegistrationController} from "./Controllers/RegistrationController";
 import {HikingAssociationController} from "./Controllers/HikingAssociationController";
 import { toggleMenuChange } from './Utils/utils.js';
 import {SectionController} from "./Controllers/SectionController";
+import {TripController} from "./Controllers/TripController";
 
 $(function() {
     const Navigator = new Navigo('/')
@@ -72,6 +73,13 @@ $(function() {
             as: 'SectionController',
             uses: (match) => {
                 Routing.switchRoute(SectionController)
+                Routing.onInit(match)
+            }
+        },
+        '/trips/:trip': {
+            as: 'TripController',
+            uses: (match) => {
+                Routing.switchRoute(TripController)
                 Routing.onInit(match)
             }
         }

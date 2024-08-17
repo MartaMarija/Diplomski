@@ -59,8 +59,8 @@ class TripFilter extends AbstractType
             ->add('StartDateSort', ChoiceType::class, [
                 'label' => 'SORTIRAJ',
                 'choices' => [
-                    'Datum polaska - najraniji' => 'DESC',
-                    'Datum polaska - najkasniji' => 'ASC'
+                    'Datum polaska - najnoviji' => 'DESC',
+                    'Datum polaska - najstariji' => 'ASC'
                 ]
             ])
         ;

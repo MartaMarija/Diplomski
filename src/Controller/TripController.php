@@ -16,7 +16,7 @@ class TripController extends BaseController
             return $this->getMainFrameView($trip->getHikingAssociation());
         }
 
-        $htmlString = $this->renderView('trip/trip-view.html.twig', [
+        $htmlString = $this->renderView('trip/trip-single.html.twig', [
             'trip' => $trip,
         ]);
 

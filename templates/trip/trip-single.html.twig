@@ -1,0 +1,17 @@
+<div>
+    <p>{{ trip.name }}</p>
+    <p>{{ trip.section.name|default('-') }}</p>
+    <p>{{ trip.startDate|date('d.m.Y. H:i') }}</p>
+    <p>{{ trip.endDate|date('d.m.Y. H:i') }}</p>
+    <p>{{ trip.description }}</p>
+    <p>{{ trip.transportDescription }}</p>
+    <p>{{ trip.locationName }}</p>
+    {% for guide in trip.guides %}
+        <p>{{ guide.FirstName }} {{ guide.LastName }}</p>
+        <p>{{ guide.contactInformation.items[0].contactDetails }}</p>
+    {% endfor %}
+
+
+    <div id="map" location="{{ trip.locationName }}" longitude="{{ trip.location.longitude }}" latitude="{{ trip.location.latitude }}"
+         style="height: 400px; width: 100%;"></div>
+</div>
