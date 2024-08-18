@@ -2,6 +2,7 @@
 
 namespace App\FormType;
 
+use App\RequestValidation\Constraint\PaymentFileRequired;
 use Pimcore\Model\DataObject\ClassDefinition;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -14,7 +15,6 @@ class PaymentFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $paymentClass = ClassDefinition::getByName('Payment');
-
         $paymentTypes = $paymentClass->getFieldDefinition('PaymentType');
         $choices = [];
         foreach ($paymentTypes->getOptions() as $option) {
@@ -23,8 +23,8 @@ class PaymentFormType extends AbstractType
 
         $builder
             ->add('PaymentType', ChoiceType::class, [
-                'label' => 'NAČIN UPLATE',
-                'placeholder' => '-- Odaberite način uplate --',
+                'label' => 'NAČIN PLAĆANJA',
+                'placeholder' => '-- Odaberite način plaćanja --',
                 'required' => true,
                 'choices' => $choices
             ])
@@ -32,10 +32,14 @@ class PaymentFormType extends AbstractType
                 'label' => 'POTVRDA O UPLATI',
                 'multiple' => false,
                 'mapped' => false,
+                'required' => false,
                 'attr' => [
                     'accept' => 'application/pdf',
                     'placeholder' => 'Učitajte potvrdu o uplati'
-                ]
+                ],
+                'constraints' => [
+                    new PaymentFileRequired(),
+                ],
             ])
             ->add('Submit', SubmitType::class, [
                 'label' => 'UČLANI SE',

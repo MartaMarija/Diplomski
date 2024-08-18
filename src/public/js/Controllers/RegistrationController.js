@@ -33,7 +33,6 @@ export class RegistrationController extends BaseController {
 
             const formData = new FormData(e.target);
             this.registrationService.submitMemberForm(formData).then(response => {
-                console.log(response)
                 if (response.data.data.redirectUrl) {
                     window.location.href = response.data.data.redirectUrl;
                 } else {

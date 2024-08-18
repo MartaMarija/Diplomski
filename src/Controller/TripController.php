@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class TripController extends BaseController
 {
-    #[Route('/trips/{trip}', name: 'trips_single')]
+    #[Route('/hiking-association/{hikingAssociation}/trips/{trip}', name: 'trips_single')]
     public function section(Request $request, Trip $trip): Response
     {
         if (!$this->isAjaxRequest($request)) {

@@ -76,7 +76,7 @@ $(function() {
                 Routing.onInit(match)
             }
         },
-        '/trips/:trip': {
+        '/hiking-association/:hikingAssociation/trips/:trip': {
             as: 'TripController',
             uses: (match) => {
                 Routing.switchRoute(TripController)

@@ -2,16 +2,18 @@ import {HikingAssociationService} from "../Services/HikingAssociationService";
 import {Inject} from "injection-js";
 import {BaseController} from "./BaseController";
 import {toggleMenuChange} from "../Utils/utils";
+import {PaymentService} from "../Services/PaymentService";
 
 export class HikingAssociationController extends BaseController {
 
     static get parameters() {
-        return [new Inject(HikingAssociationService)];
+        return [new Inject(HikingAssociationService), new Inject(PaymentService)];
     }
 
-    constructor(HikingAssociationService) {
+    constructor(HikingAssociationService, PaymentService) {
         super();
         this.hikingAssociationService = HikingAssociationService
+        this.paymentService = PaymentService
         this.page = 1
     }
 
@@ -29,8 +31,6 @@ export class HikingAssociationController extends BaseController {
 
     addEventListeners() {
         this.loadHikingAssociationData()
-        this.addPaginationListeners()
-        this.addTripFilterListeners()
     }
 
     loadHikingAssociationData() {
@@ -52,7 +52,15 @@ export class HikingAssociationController extends BaseController {
             //     console.log(link.href); // or perform any other action with the links
             // });
 
-            this.loadTripsData()
+            if (this.route === 'trips') {
+                this.loadTripsData()
+                this.addPaginationListeners()
+                this.addTripFilterListeners()
+            }
+
+            if (this.route === 'membership') {
+                this.loadPaymentForm()
+            }
         });
     }
 
@@ -156,5 +164,34 @@ export class HikingAssociationController extends BaseController {
             //     console.log(link.href); // or perform any other action with the links
             // });
         });
+    }
+
+    loadPaymentForm() {
+        let routeParams = `&paymentDescription=Članarina&paymentObject=${this.hikingAssociationId}`
+
+        this.paymentService.loadPaymentForm(this.hikingAssociationId, routeParams).then((response) => {
+            let html = JSON.parse(response.data.data.html_string)
+            $('#payment-container').html(html)
+
+            this.addPaymentFormListener()
+        });
+    }
+
+    addPaymentFormListener() {
+        $(document).on('submit', 'form', (e) => {
+            e.preventDefault()
+
+            const formData = new FormData(e.target);
+            let routeParams = `&paymentDescription=Članarina&paymentObject=${this.hikingAssociationId}`
+
+            this.paymentService.submitPaymentForm(this.hikingAssociationId, routeParams, formData).then(response => {
+                if (response.data.data.message) {
+                    alert(response.data.data.message)
+                } else {
+                    let html = JSON.parse(response.data.data.html_string)
+                    $('#payment-container').html(html)
+                }
+            })
+        })
     }
 }

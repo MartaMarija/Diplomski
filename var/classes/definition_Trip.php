@@ -26,7 +26,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1723900362,
+   'modificationDate' => 1723989313,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -344,7 +344,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'allowedTypes' => 
                 array (
-                  0 => 'MembershipDetailsFC',
+                  0 => 'PaymentDetailsFC',
                 ),
                  'lazyLoading' => true,
                  'maxItems' => NULL,

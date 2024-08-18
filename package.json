@@ -38,7 +38,6 @@
     "datejs": "^1.0.0-rc3",
     "injection-js": "^2.4.0",
     "jquery": "^3.6.0",
-    "leaflet": "^1.9.4",
     "navigo": "^8.11.1",
     "table-dragger": "^1.0.3",
     "tinymce": "^6.2.0"

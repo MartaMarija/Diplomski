@@ -10,6 +10,7 @@ import {SectionService} from "../Services/SectionService";
 import {SectionController} from "../Controllers/SectionController";
 import {TripController} from "../Controllers/TripController";
 import {TripService} from "../Services/TripService";
+import {PaymentService} from "../Services/PaymentService";
 
 export class DependencyInjection {
     constructor() {
@@ -24,7 +25,8 @@ export class DependencyInjection {
             SectionController,
             SectionService,
             TripController,
-            TripService
+            TripService,
+            PaymentService
         ]);
     }
 }

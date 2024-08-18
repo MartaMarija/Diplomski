@@ -1,0 +1,44 @@
+<div class="payment-container">
+    <div class="payment-details">
+        <p class="payment-title">DETALJI PLAĆANJA:</p>
+        {% if message is not empty %}
+            <p class="input-error">* {{ message }}</p>
+        {% endif %}
+        <div class="payment-details-data-container">
+            {% for paymentDetail in paymentDetails %}
+                <div class="payment-details-data-mini-container">
+                    <p class="payment-details-data">{{ paymentDetail.membershipType.name }}</p>
+                    <p class="payment-details-data">{{ paymentDetail.price.value }} {{ paymentDetail.price.unit }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% if message is empty %}
+        <form class="payment" method="post">
+            {{ form_start(form) }}
+            <div class="payment-form">
+
+                <div class="label-input-container-up">
+                    {{ form_label(form.PaymentType, null, { 'label_attr': { 'class': 'label' } }) }}
+                    {{ form_widget(form.PaymentType, { 'attr': { 'class': 'selectize wider-selectize' } }) }}
+                </div>
+
+                <div class="label-input-container-up">
+                    {{ form_label(form.File, null, { 'label_attr': { 'class': 'label' } }) }}
+                    {{ form_widget(form.File, { 'attr': { 'class': 'selectize wider-selectize' } }) }}
+                    <p class="input-error">
+                        {% for error in form.File.vars.errors %}
+                            * {{ error.message|trans }}
+                        {% endfor %}
+                    </p>
+                </div>
+
+                <div class="label-input-container-up">
+                    {{ form_widget(form.Submit, { 'attr': { 'class': 'selectize wider-selectize payment-button' } }) }}
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </form>
+    {% endif %}
+</div>
