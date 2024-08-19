@@ -1,0 +1,24 @@
+<table class="list-table">
+    <thead>
+    <tr>
+        <th>DRUŠTVO</th>
+        <th>GODINA</th>
+        <th>POZVRĐENO</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for membership in memberships %}
+        <tr>
+            <td><p>{{ membership.paymentObject.Name }}</p></td>
+            <td><p>{{ membership.year }}</p></td>
+            <td><p>{{ membership.confirmedByModerator == 1 ? 'Da' : 'Ne' }}</p></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% if memberships is empty %}
+    <p style="margin-top: 20px">Trenutno niste član nijednog društva.</p>
+{% else %}
+    {% include "utils/pagination-nav.html.twig" %}
+{% endif %}

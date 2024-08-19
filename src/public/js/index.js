@@ -96,7 +96,21 @@ $(function() {
             as: 'MemberController',
             uses: (match) => {
                 Routing.switchRoute(MemberController)
-                Routing.onInit(match)
+                Routing.onInit({match, route: "profile", navigo: Navigator})
+            }
+        },
+        '/my-profile/memberships': {
+            as: 'MemberController',
+            uses: (match) => {
+                Routing.switchRoute(MemberController)
+                Routing.onInit({match, route: "memberships"})
+            }
+        },
+        '/my-profile/trips': {
+            as: 'MemberController',
+            uses: (match) => {
+                Routing.switchRoute(MemberController)
+                Routing.onInit({match, route: "trips"})
             }
         }
     })

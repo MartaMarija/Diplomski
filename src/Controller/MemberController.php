@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use App\FormType\MemberFormType;
 use App\Model\Member;
+use App\Repository\MemberRepository;
+use Knp\Component\Pager\PaginatorInterface;
+use Pimcore\Model\DataObject\HikingAssociation;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +16,8 @@ class MemberController extends BaseController
 {
     public function __construct(
         private Security $security,
+        private MemberRepository $memberRepository,
+        private PaginatorInterface $paginator
     )
     {
     }
@@ -59,10 +64,22 @@ class MemberController extends BaseController
             return $this->getMainFrameView();
         }
 
+        $hikingAssociationId = $request->get('hikingAssociationId');
+        $page = $request->query->get('page', 1);
+        $limit = 2;
 
+        $tripListing = $this->memberRepository->getMemberTripsListing($member);
+        $trips = $this->paginator->paginate(
+            $tripListing,
+            $page,
+            $limit
+        );
 
         $htmlString = $this->renderView('user/trips.html.twig', [
-
+            'hikingAssociation' => HikingAssociation::getById($hikingAssociationId),
+            'trips' => $trips->getItems(),
+            'totalPageCount' => ceil($trips->getTotalItemCount() / $limit),
+            'currentPage' => $page,
         ]);
 
         return $this->respondWithSuccess(['html_string' => json_encode($htmlString)]);
@@ -77,8 +94,20 @@ class MemberController extends BaseController
             return $this->getMainFrameView();
         }
 
-        $htmlString = $this->renderView('user/memberships.html.twig', [
+        $page = $request->query->get('page', 1);
+        $limit = 2;
 
+        $membershipListing = $this->memberRepository->getMemberMembershipsListing($member);
+        $memberships = $this->paginator->paginate(
+            $membershipListing,
+            $page,
+            $limit
+        );
+
+        $htmlString = $this->renderView('user/memberships.html.twig', [
+            'memberships' => $memberships->getItems(),
+            'totalPageCount' => ceil($memberships->getTotalItemCount() / $limit),
+            'currentPage' => $page,
         ]);
 
         return $this->respondWithSuccess(['html_string' => json_encode($htmlString)]);

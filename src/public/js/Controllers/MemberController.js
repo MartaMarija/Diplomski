@@ -13,16 +13,32 @@ export class MemberController extends BaseController {
         this.memberService = MemberService
     }
 
-    onInit() {
+    onInit(config) {
         this.destroy()
-        this.loadMyProfile()
-        this.addEventListeners()
+        this.page = 1
+        this.hikingAssociationId = localStorage.getItem('hikingAssociationId')
+        this.navigo = config.navigo
+
+        if (config.route === 'memberships') {
+            this.loadMemberships()
+        }
+
+        if (config.route === 'profile') {
+            this.loadMyProfile()
+            this.addEventListeners()
+        }
+
+        if (config.route === 'trips') {
+            this.loadTrips()
+        }
     }
 
     loadMyProfile() {
         this.memberService.loadMyProfile().then((response) => {
             let html = JSON.parse(response.data.data.html_string)
             this.replaceView(html)
+
+            this.navigo.updatePageLinks()
         });
     }
 
@@ -36,5 +52,24 @@ export class MemberController extends BaseController {
                 $('#member-data').html(html)
             })
         })
+    }
+
+    loadMemberships() {
+        let routeParams = `&page=${this.page}&hikingAssociationId=${this.hikingAssociationId}`
+
+        this.memberService.loadMemberships(routeParams).then((response) => {
+            let html = JSON.parse(response.data.data.html_string)
+            this.replaceView(html)
+        });
+    }
+
+    loadTrips() {
+
+        let routeParams = `&page=${this.page}&hikingAssociationId=${this.hikingAssociationId}`
+
+        this.memberService.loadTrips(routeParams).then((response) => {
+            let html = JSON.parse(response.data.data.html_string)
+            this.replaceView(html)
+        });
     }
 }
