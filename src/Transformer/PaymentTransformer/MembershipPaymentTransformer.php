@@ -13,9 +13,9 @@ class MembershipPaymentTransformer extends AbstractPaymentTransformer
     /**
      * @inheritDoc
      */
-    public function getPaymentDetails(): array
+    public function getPaymentDetails(): ?array
     {
-        return $this->paymentObject->getMembershipDetails()->getItems();
+        return $this->paymentObject->getMembershipDetails()?->getItems();
     }
 
     public function createPayment(Payment $payment, ?UploadedFile $file): Payment

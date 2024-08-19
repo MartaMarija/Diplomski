@@ -1,0 +1,10 @@
+{% for article in articles %}
+    <p><a href="{{ path('article_single', { 'hikingAssociation': hikingAssociation.id, 'article': article.id }) }}" data-navigo>{{ article.name }}</a></p>
+    <img src="{{ article.mainImage.getThumbnail("LogoSearch").getAsFormat("webp") }}"><br>
+{% endfor %}
+
+{% if articles is empty %}
+    <p>Nije pronađen nijedn članak za planinarsko društvo {{ hikingAssociation.name }}.</p>
+{% else %}
+    {% include "utils/pagination-nav.html.twig" %}
+{% endif %}

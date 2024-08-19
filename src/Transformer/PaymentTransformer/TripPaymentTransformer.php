@@ -12,9 +12,9 @@ class TripPaymentTransformer extends AbstractPaymentTransformer
     /**
      * @inheritDoc
      */
-    public function getPaymentDetails(): array
+    public function getPaymentDetails(): ?array
     {
-        return $this->paymentObject->getPriceDetails()->getItems();
+        return $this->paymentObject->getPriceDetails()?->getItems();
     }
 
     public function createPayment(Payment $payment, ?UploadedFile $file): Payment
@@ -42,6 +42,10 @@ class TripPaymentTransformer extends AbstractPaymentTransformer
 
         if ($this->paymentRepository->isMemberAppliedForTrip($member, $this->paymentObject)) {
             return 'Korisnik je već prijavljen za izlet.';
+        }
+
+        if (!$this->paymentRepository->tripHasCapacity($this->paymentObject)) {
+            return 'Sva mjesta za ovaj izlet su već popunjena';
         }
 
         return null;

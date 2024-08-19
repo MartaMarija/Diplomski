@@ -7,6 +7,8 @@ import {HikingAssociationController} from "./Controllers/HikingAssociationContro
 import { toggleMenuChange } from './Utils/utils.js';
 import {SectionController} from "./Controllers/SectionController";
 import {TripController} from "./Controllers/TripController";
+import {ArticleController} from "./Controllers/ArticleController";
+import {MemberController} from "./Controllers/MemberController";
 
 $(function() {
     const Navigator = new Navigo('/')
@@ -80,6 +82,20 @@ $(function() {
             as: 'TripController',
             uses: (match) => {
                 Routing.switchRoute(TripController)
+                Routing.onInit(match)
+            }
+        },
+        '/hiking-association/:hikingAssociation/articles/:article': {
+            as: 'ArticleController',
+            uses: (match) => {
+                Routing.switchRoute(ArticleController)
+                Routing.onInit(match)
+            }
+        },
+        '/my-profile': {
+            as: 'MemberController',
+            uses: (match) => {
+                Routing.switchRoute(MemberController)
                 Routing.onInit(match)
             }
         }

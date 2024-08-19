@@ -4,6 +4,9 @@
         {% if message is not empty %}
             <p class="input-error">* {{ message }}</p>
         {% endif %}
+        {% if paymentDetails is empty %}
+            <p class="input-error">* Nisu uneseni detalji plaćanja</p>
+        {% endif %}
         <div class="payment-details-data-container">
             {% for paymentDetail in paymentDetails %}
                 <div class="payment-details-data-mini-container">

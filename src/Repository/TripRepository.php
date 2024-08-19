@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use Carbon\Carbon;
+use Pimcore\Db;
 use Pimcore\Model\DataObject\HikingAssociation;
 use Pimcore\Model\DataObject\Trip;
 use Pimcore\Model\DataObject\Trip\Listing;
@@ -60,5 +61,20 @@ class TripRepository
         $listing->setOrder($sort);
 
         return $listing;
+    }
+
+    public function getNumberOfApplicantsForTrip(Trip $trip): int
+    {
+        $queryBuilder = Db::getConnection()->createQueryBuilder();
+
+        $queryBuilder
+            ->select('COUNT(*)')
+            ->from('object_Payment')
+            ->where('PaymentObject__id = :tripId')
+            ->setParameters([
+                'tripId' => $trip->getId()
+            ]);
+
+        return $queryBuilder->executeQuery()->fetchOne();
     }
 }

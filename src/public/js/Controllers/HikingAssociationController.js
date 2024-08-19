@@ -3,17 +3,26 @@ import {Inject} from "injection-js";
 import {BaseController} from "./BaseController";
 import {toggleMenuChange} from "../Utils/utils";
 import {PaymentService} from "../Services/PaymentService";
+import {ArticleService} from "../Services/ArticleService";
+import {TripService} from "../Services/TripService";
 
 export class HikingAssociationController extends BaseController {
 
     static get parameters() {
-        return [new Inject(HikingAssociationService), new Inject(PaymentService)];
+        return [
+            new Inject(HikingAssociationService),
+            new Inject(PaymentService),
+            new Inject(ArticleService),
+            new Inject(TripService)
+        ];
     }
 
-    constructor(HikingAssociationService, PaymentService) {
+    constructor(HikingAssociationService, PaymentService, NewsService, TripService) {
         super();
         this.hikingAssociationService = HikingAssociationService
         this.paymentService = PaymentService
+        this.newsService = NewsService
+        this.tripService = TripService
         this.page = 1
     }
 
@@ -54,37 +63,42 @@ export class HikingAssociationController extends BaseController {
 
             if (this.route === 'trips') {
                 this.loadTripsData()
-                this.addPaginationListeners()
+                this.addPaginationListeners('loadTripsData')
                 this.addTripFilterListeners()
             }
 
             if (this.route === 'membership') {
                 this.loadPaymentForm()
             }
+
+            if (this.route === 'news') {
+                this.loadNewsData()
+                this.addPaginationListeners('loadNewsData')
+            }
         });
     }
 
-    addPaginationListeners() {
+    addPaginationListeners(functionName) {
         $(document).on('click', '#first-page:not(.disabled)', () => {
             this.page = 1
-            this.loadTripsData()
+            this[functionName].call(this);
         })
 
         $(document).on('click', '#previous-page:not(.disabled)', () => {
             let currentPage = parseInt($('#current-page').html())
             this.page = currentPage - 1
-            this.loadTripsData()
+            this[functionName].call(this);
         })
 
         $(document).on('click', '#next-page:not(.disabled)', () => {
             let currentPage = parseInt($('#current-page').html())
             this.page = currentPage + 1
-            this.loadTripsData()
+            this[functionName].call(this);
         })
 
         $(document).on('click', '#last-page:not(.disabled)', () => {
             this.page = parseInt($('#last-page').html())
-            this.loadTripsData()
+            this[functionName].call(this);
         })
     }
 
@@ -150,7 +164,7 @@ export class HikingAssociationController extends BaseController {
             routeParams += `&page=${this.page}`
         }
 
-        this.hikingAssociationService.loadTripsData(this.hikingAssociationId, routeParams).then((response) => {
+        this.tripService.loadTripsData(this.hikingAssociationId, routeParams).then((response) => {
             let html = JSON.parse(response.data.data.html_string)
             $('#trip-list').html(html)
 
@@ -193,5 +207,24 @@ export class HikingAssociationController extends BaseController {
                 }
             })
         })
+    }
+
+    loadNewsData() {
+        let routeParams = ''
+
+        if (this.page) {
+            routeParams += `&page=${this.page}`
+        }
+
+        this.newsService.loadNewsData(this.hikingAssociationId, routeParams).then((response) => {
+            let html = JSON.parse(response.data.data.html_string)
+            $('#news-list').html(html)
+
+            /**
+             * Most of the routes will generate new links and function updatePageLinks needs to be called in order for
+             * Navigo to know about new links with data-navigo attribute
+             */
+            this.navigo.updatePageLinks()
+        });
     }
 }

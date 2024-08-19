@@ -10,9 +10,9 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 interface PaymentTransformerContract
 {
     /**
-     * @return PaymentDetailsFC[]
+     * @return ?PaymentDetailsFC[]
      */
-    public function getPaymentDetails(): array;
+    public function getPaymentDetails(): ?array;
 
     public function createPayment(Payment $payment, ?UploadedFile $file): Payment;
 

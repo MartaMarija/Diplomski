@@ -15,6 +15,7 @@ class PaymentRepository
 {
     public function __construct(
         private Security $security,
+        private TripRepository $tripRepository,
     )
     {
     }
@@ -97,5 +98,16 @@ class PaymentRepository
         }
 
         return false;
+    }
+
+    public function tripHasCapacity(Trip $trip): bool
+    {
+        $numberOfApplicants = $this->tripRepository->getNumberOfApplicantsForTrip($trip);
+
+        if ($numberOfApplicants >= $trip->getAvailableCapacity()) {
+            return false;
+        }
+
+        return true;
     }
 }

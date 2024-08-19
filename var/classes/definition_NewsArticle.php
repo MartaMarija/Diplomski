@@ -7,6 +7,7 @@
  * Fields Summary:
  * - Name [input]
  * - Content [textarea]
+ * - MainImage [image]
  * - Gallery [imageGallery]
  * - CreatedBy [manyToOneRelation]
  * - HikingAssociation [manyToOneRelation]
@@ -20,7 +21,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1723804989,
+   'modificationDate' => 1724086712,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -65,10 +66,10 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
         array (
           0 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-             'name' => 'Layout',
+             'name' => 'Info',
              'type' => NULL,
              'region' => NULL,
-             'title' => '',
+             'title' => 'Info',
              'width' => '',
              'height' => '',
              'collapsible' => false,
@@ -133,6 +134,29 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'width' => 500,
               )),
               2 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                 'name' => 'MainImage',
+                 'title' => 'Main Image',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'uploadPath' => '',
+                 'width' => '',
+                 'height' => '',
+              )),
+              3 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
                  'name' => 'Gallery',
                  'title' => 'Gallery',

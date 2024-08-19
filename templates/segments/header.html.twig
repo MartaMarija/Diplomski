@@ -16,7 +16,7 @@
 
     <div class="navbar-auth">
         {% if app.user %}
-            <a href="#profile">PROFIL</a>
+            <a href="{{ path('my_profile') }}" data-navigo>PROFIL</a>
             <a href="{{ path('logout') }}">ODJAVA</a>
         {% else %}
             <a href="{{ path('login') }}" data-navigo>PRIJAVA</a>

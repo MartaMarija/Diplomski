@@ -1,0 +1,9 @@
+<h2>{{ article.name }}</h2>
+<p>Autor/ica: {{ article.createdBy.FirstName }} {{ article.createdBy.LastName }}</p>
+<p style="width: 400px">{{ article.content }}</p>
+
+<div class="gallery">
+    {% for image in article.gallery %}
+        <img loading="lazy" src="{{ image.image.fullPath }}"><br>
+    {% endfor %}
+</div>

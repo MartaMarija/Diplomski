@@ -11,6 +11,10 @@ import {SectionController} from "../Controllers/SectionController";
 import {TripController} from "../Controllers/TripController";
 import {TripService} from "../Services/TripService";
 import {PaymentService} from "../Services/PaymentService";
+import {ArticleService} from "../Services/ArticleService";
+import {ArticleController} from "../Controllers/ArticleController";
+import {MemberController} from "../Controllers/MemberController";
+import {MemberService} from "../Services/MemberService";
 
 export class DependencyInjection {
     constructor() {
@@ -26,7 +30,11 @@ export class DependencyInjection {
             SectionService,
             TripController,
             TripService,
-            PaymentService
+            PaymentService,
+            ArticleController,
+            ArticleService,
+            MemberController,
+            MemberService
         ]);
     }
 }

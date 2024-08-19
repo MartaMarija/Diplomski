@@ -1,17 +1,29 @@
 <div>
     <p>{{ trip.name }}</p>
     <p>{{ trip.section.name|default('-') }}</p>
-    <p>{{ trip.startDate|date('d.m.Y. H:i') }}</p>
-    <p>{{ trip.endDate|date('d.m.Y. H:i') }}</p>
+    <p>Vrijeme polaska: {{ trip.startDate|date('d.m.Y. H:i') }}</p>
+    <p>Vrijeme povratka: {{ trip.endDate|date('d.m.Y. H:i') }}</p>
     <p>{{ trip.description }}</p>
-    <p>{{ trip.transportDescription }}</p>
+    <p>Upute za prijevoz: {{ trip.transportDescription }}</p>
+
+    <div class="capacity">
+        {% if freeSpace > 0 %}
+            <p>Ostalo je još: {{ freeSpace }} mjesta!</p>
+        {% else %}
+            <p>Sva mjesta za ovaj izlet su već popunjena</p>
+        {% endif %}
+        <p>Ukupno mjesta: {{ trip.availableCapacity }}</p>
+    </div>
+
+    <p>Vodiči:</p>
+    <div>
+        {% for guide in trip.guides %}
+            <p>{{ guide.FirstName }} {{ guide.LastName }}</p>
+            <p>{{ guide.contactInformation.items[0].contactDetails }}</p>
+        {% endfor %}
+    </div>
+
     <p>{{ trip.locationName }}</p>
-    {% for guide in trip.guides %}
-        <p>{{ guide.FirstName }} {{ guide.LastName }}</p>
-        <p>{{ guide.contactInformation.items[0].contactDetails }}</p>
-    {% endfor %}
-
-
     <div id="map" location="{{ trip.locationName }}" longitude="{{ trip.location.longitude }}" latitude="{{ trip.location.latitude }}"
          style="height: 400px; width: 400px;"></div>
 </div>
