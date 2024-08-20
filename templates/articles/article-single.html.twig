@@ -1,9 +1,24 @@
-<h2>{{ article.name }}</h2>
-<p>Autor/ica: {{ article.createdBy.FirstName }} {{ article.createdBy.LastName }}</p>
-<p style="width: 400px">{{ article.content }}</p>
+<div class="center-column news-single-container">
+    <div class="article-name">
+        <p class="name">{{ article.name }}</p>
+        <p class="name-smaller">{{ article.createdBy.FirstName }} {{ article.createdBy.LastName }}</p>
+    </div>
 
-<div class="gallery">
-    {% for image in article.gallery %}
-        <img loading="lazy" src="{{ image.image.fullPath }}"><br>
+    {% for item in article.content.items %}
+        {% if item.type == 'NewsArticleImageFC' %}
+            <div class="class-for-image">
+                <img class="news-image" src="{{ item.image.getThumbnail("NewsArticle").getAsFormat("webp") }}" alt="">
+            </div>
+        {% elseif item.type == 'NewsArticleContentFC' %}
+            <p class="news-text paragraph">{{ item.content }}</p>
+            <p class="news-text paragraph">{{ item.content }}</p>
+            <p class="news-text paragraph">{{ item.content }}</p>
+        {% endif %}
     {% endfor %}
+
+    <div class="gallery">
+        {% for image in article.gallery %}
+            <img loading="lazy" src="{{ image.image.fullPath }}">
+        {% endfor %}
+    </div>
 </div>

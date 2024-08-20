@@ -1,12 +1,15 @@
-{% for hikingAssociation in hikingAssociations %}
-    <img src="{{ hikingAssociation.logo.getThumbnail("LogoSearch").getAsFormat("webp") }}">
-{#    <p data-id="{{ hikingAssociation.id }}">{{ hikingAssociation.name }}</p>#}
-    <a href="{{ path('hiking_association', { 'hikingAssociation': hikingAssociation.id }) }}">{{ hikingAssociation.name }}</a>
-{% endfor %}
-
 {% if hikingAssociations is empty %}
     <p>Nije pronađeno nijedno planinarsko društvo.</p>
 {% else %}
     {% include "utils/pagination-nav.html.twig" %}
 {% endif %}
+
+<div class="position">
+    {% for hikingAssociation in hikingAssociations %}
+        <a href="{{ path('hiking_association', { 'hikingAssociation': hikingAssociation.id }) }}" class="center-column">
+            <img class="href-image" src="{{ hikingAssociation.logo.getThumbnail("LogoSearch").getAsFormat("webp") }}" alt="{{ hikingAssociation.name }} Logo">
+            <p class="name">{{ hikingAssociation.name }}</p>
+        </a>
+    {% endfor %}
+</div>
 

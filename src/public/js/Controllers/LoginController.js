@@ -15,6 +15,7 @@ export class LoginController extends BaseController {
 
     onInit() {
         this.destroy()
+
         this.loadLoginForm()
     }
 

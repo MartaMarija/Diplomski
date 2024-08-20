@@ -1,31 +1,44 @@
-<div>
-    <p>{{ trip.name }}</p>
-    <p>{{ trip.section.name|default('-') }}</p>
-    <p>Vrijeme polaska: {{ trip.startDate|date('d.m.Y. H:i') }}</p>
-    <p>Vrijeme povratka: {{ trip.endDate|date('d.m.Y. H:i') }}</p>
-    <p>{{ trip.description }}</p>
-    <p>Upute za prijevoz: {{ trip.transportDescription }}</p>
+<div class="center-column">
+    <p class="name">{{ trip.name }}</p>
+    <p class="name-smaller" style="margin-top: 10px">{{ trip.locationName }}</p>
 
-    <div class="capacity">
-        {% if freeSpace > 0 %}
-            <p>Ostalo je još: {{ freeSpace }} mjesta!</p>
-        {% else %}
-            <p>Sva mjesta za ovaj izlet su već popunjena</p>
-        {% endif %}
-        <p>Ukupno mjesta: {{ trip.availableCapacity }}</p>
+    <div class="trip-data">
+        <div class="trip-data-space-out">
+            <div>
+                <p class="trip-title">POLAZAK</p>
+                <p>{{ trip.startDate|date('d.m.Y. H:i') }}</p>
+
+                <p class="trip-title">POVRATAK</p>
+                <p>{{ trip.endDate|date('d.m.Y. H:i') }}</p>
+            </div>
+
+            <div>
+                <p class="trip-title">OPIS</p>
+                <p>{{ trip.description }}</p>
+            </div>
+
+            <div>
+                <p class="trip-title">UPUTE O PRIJEVOZU</p>
+                <p>{{ trip.transportDescription }}</p>
+            </div>
+
+            <div class="capacity">
+                <p class="trip-title">UKUPNO MJESTA</p>
+                {% if freeSpace > 0 %}
+                    <p>Ostalo je još {{ freeSpace }} slobodnih mjesta! (od ukupno {{ trip.availableCapacity }})</p>
+                {% else %}
+                    <p>Sva mjesta za ovaj izlet su već popunjena! (od ukupno {{ trip.availableCapacity }})</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div>
+            <div id="map" location="{{ trip.locationName }}" longitude="{{ trip.location.longitude }}" latitude="{{ trip.location.latitude }}"
+            style="height: 400px; width: 400px;"></div>
+        </div>
     </div>
-
-    <p>Vodiči:</p>
-    <div>
-        {% for guide in trip.guides %}
-            <p>{{ guide.FirstName }} {{ guide.LastName }}</p>
-            <p>{{ guide.contactInformation.items[0].contactDetails }}</p>
-        {% endfor %}
-    </div>
-
-    <p>{{ trip.locationName }}</p>
-    <div id="map" location="{{ trip.locationName }}" longitude="{{ trip.location.longitude }}" latitude="{{ trip.location.latitude }}"
-         style="height: 400px; width: 400px;"></div>
 </div>
 
-<div id="payment-container"></div>
+{% include "hiking-association/guides.html.twig" with {'guides': trip.guides} %}
+
+<div id="payment-container" style="margin: 100px"></div>

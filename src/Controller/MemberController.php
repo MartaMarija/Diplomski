@@ -64,7 +64,6 @@ class MemberController extends BaseController
             return $this->getMainFrameView();
         }
 
-        $hikingAssociationId = $request->get('hikingAssociationId');
         $page = $request->query->get('page', 1);
         $limit = 2;
 
@@ -76,7 +75,6 @@ class MemberController extends BaseController
         );
 
         $htmlString = $this->renderView('user/trips.html.twig', [
-            'hikingAssociation' => HikingAssociation::getById($hikingAssociationId),
             'trips' => $trips->getItems(),
             'totalPageCount' => ceil($trips->getTotalItemCount() / $limit),
             'currentPage' => $page,

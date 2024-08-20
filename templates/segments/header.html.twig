@@ -1,11 +1,11 @@
 <header class="navbar">
     <div class="navbar-logo">
         {% if hikingAssociation is not empty %}
-            <a href="#" class="hiking-association-exists"><img src="/Split.jpg" alt="Logo"></a>
-{#            TODO naziv društva inline#}
-{#            <p id="hiking">123</p>#}
+            <a href="{{ path('hiking_association_info', { 'hikingAssociation': hikingAssociation.id }) }}" data-navigo class="hiking-association-exists">
+                {{ hikingAssociation.name|upper }}
+            </a>
         {% endif %}
-        <a href="{{ path('default') }}" class="hiking-association-does-not-exist" data-navigo>PRETRAŽIVANJE DRUŠTVA</a>
+        <a href="{{ path('default') }}" class="hiking-association-does-not-exist" data-navigo>PRETRAŽIVANJE DRUŠTAVA</a>
     </div>
 
     <nav class="navbar-menu-hiking-association navbar-menu hiking-association-exists">
@@ -24,7 +24,7 @@
         {% endif %}
 
         {% if hikingAssociation is not empty %}
-            <a href="{{ path('default') }}" class="hiking-association-exists" data-navigo>PRETRAŽIVANJE DRUŠTVA</a>
+            <a href="{{ path('default') }}" class="hiking-association-exists" data-navigo>PRETRAŽIVANJE DRUŠTAVA</a>
         {% endif %}
     </div>
 </header>

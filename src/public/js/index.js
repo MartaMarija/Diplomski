@@ -97,20 +97,27 @@ $(function() {
             uses: (match) => {
                 Routing.switchRoute(MemberController)
                 Routing.onInit({match, route: "profile", navigo: Navigator})
+            },
+            hooks: {
+                before: (done, match) => {
+                    localStorage.removeItem('hikingAssociationId')
+                    toggleMenuChange()
+                    done()
+                }
             }
         },
-        '/my-profile/memberships': {
+        '/my-profile/:route': {
             as: 'MemberController',
             uses: (match) => {
                 Routing.switchRoute(MemberController)
-                Routing.onInit({match, route: "memberships"})
-            }
-        },
-        '/my-profile/trips': {
-            as: 'MemberController',
-            uses: (match) => {
-                Routing.switchRoute(MemberController)
-                Routing.onInit({match, route: "trips"})
+                Routing.onInit({match, route: match.data.route})
+            },
+            hooks: {
+                before: (done, match) => {
+                    localStorage.removeItem('hikingAssociationId')
+                    toggleMenuChange()
+                    done()
+                }
             }
         }
     })

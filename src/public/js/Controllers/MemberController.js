@@ -21,6 +21,7 @@ export class MemberController extends BaseController {
 
         if (config.route === 'memberships') {
             this.loadMemberships()
+            this.addPaginationListeners('loadMemberships')
         }
 
         if (config.route === 'profile') {
@@ -30,6 +31,7 @@ export class MemberController extends BaseController {
 
         if (config.route === 'trips') {
             this.loadTrips()
+            this.addPaginationListeners('loadTrips')
         }
     }
 
@@ -55,21 +57,45 @@ export class MemberController extends BaseController {
     }
 
     loadMemberships() {
-        let routeParams = `&page=${this.page}&hikingAssociationId=${this.hikingAssociationId}`
+        let routeParams = `&page=${this.page}`
 
         this.memberService.loadMemberships(routeParams).then((response) => {
             let html = JSON.parse(response.data.data.html_string)
-            this.replaceView(html)
+            this.mainElement.html(html)
         });
     }
 
     loadTrips() {
 
-        let routeParams = `&page=${this.page}&hikingAssociationId=${this.hikingAssociationId}`
+        let routeParams = `&page=${this.page}`
 
         this.memberService.loadTrips(routeParams).then((response) => {
             let html = JSON.parse(response.data.data.html_string)
-            this.replaceView(html)
+            this.mainElement.html(html)
         });
+    }
+
+    addPaginationListeners(functionName) {
+        $(document).on('click', '#first-page:not(.disabled)', () => {
+            this.page = 1
+            this[functionName].call(this);
+        })
+
+        $(document).on('click', '#previous-page:not(.disabled)', () => {
+            let currentPage = parseInt($('#current-page').html())
+            this.page = currentPage - 1
+            this[functionName].call(this);
+        })
+
+        $(document).on('click', '#next-page:not(.disabled)', () => {
+            let currentPage = parseInt($('#current-page').html())
+            this.page = currentPage + 1
+            this[functionName].call(this);
+        })
+
+        $(document).on('click', '#last-page:not(.disabled)', () => {
+            this.page = parseInt($('#last-page').html())
+            this[functionName].call(this);
+        })
     }
 }

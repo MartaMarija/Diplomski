@@ -1,0 +1,36 @@
+pimcore:
+    assets:
+        image:
+            thumbnails:
+                definitions:
+                    LogoInfo:
+                        items:
+                            -
+                                method: scaleByHeight
+                                arguments:
+                                    height: 200
+                                    forceResize: false
+                            -
+                                method: scaleByWidth
+                                arguments:
+                                    width: 200
+                                    forceResize: false
+                            -
+                                method: roundCorners
+                                arguments:
+                                    width: 10
+                                    height: 10
+                        medias: {  }
+                        name: LogoInfo
+                        description: ''
+                        group: ''
+                        format: SOURCE
+                        quality: 85
+                        highResolution: null
+                        preserveColor: false
+                        preserveMetaData: false
+                        rasterizeSVG: false
+                        downloadable: false
+                        modificationDate: 1724181272
+                        creationDate: 1724181219
+                        preserveAnimation: false

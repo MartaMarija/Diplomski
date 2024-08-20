@@ -1,7 +1,22 @@
-{% for guide in guides %}
-    <p>{{ guide.firstName }} {{ guide.lastName }}</p>
-{% endfor %}
-
-{% if guides is empty %}
-    <p>Nije pronađen nijedn vodič za planinarsko društvo {{ hikingAssociation.name }}.</p>
-{% endif %}
+<div class="center-column">
+    {% if guides is empty %}
+        <p>Nije pronađen nijedn vodič za planinarsko društvo {{ hikingAssociation.name }}.</p>
+    {% else %}
+        <table class="list-table">
+            <thead>
+            <tr>
+                <th>IME I PREZIME VODIČA</th>
+                <th>KONTAKT</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for guide in guides %}
+                <tr>
+                    <td><p>{{ guide.firstName }} {{ guide.lastName }}</p></td>
+                    <td><p>{{ guide.contactInformation.items[0].contactDetails }}</p></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</div>

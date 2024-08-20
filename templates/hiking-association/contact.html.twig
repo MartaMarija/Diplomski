@@ -1,10 +1,17 @@
-{% for contactInformation in contactsInformation %}
-    <p>{{ contactInformation.contactType }}</p>
-    <p>{{ contactInformation.contactDetails }}</p>
+<div class="center-column">
+    {% if contactsInformation is empty %}
+        <p>Nije pronađen nijedna kontakt za planinarsko društvo {{ hikingAssociation.name }}.</p>
+    {% else %}
+        <table class="list-table">
+            <tbody>
+            {% for contactInformation in contactsInformation %}
+                <tr>
+                    <td><p>{{ contactInformation.contactType }}</p></td>
+                    <td><p>{{ contactInformation.contactDetails }}</p></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</div>
 
-    <br>
-{% endfor %}
-
-{% if contactsInformation is empty %}
-    <p>Nije pronađen nijedna kontakt za planinarsko društvo {{ hikingAssociation.name }}.</p>
-{% endif %}

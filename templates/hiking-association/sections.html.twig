@@ -1,8 +1,23 @@
-{% for section in sections %}
-    <a href="{{ path('sections_single', { 'section': section.id }) }}" data-navigo>{{ section.name }}</a>
-{% endfor %}
+<div class="center-column">
+    {% if sections is empty %}
+        <p>Nije pronađena nijedna sekcija za planinarsko društvo {{ hikingAssociation.name }}.</p>
+    {% else %}
+        <table class="list-table">
+            <thead>
+            <tr>
+                <th>NAZIV SEKCIJE</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for section in sections %}
+                <tr>
+                    <td><a href="{{ path('sections_single', { 'section': section.id }) }}" data-navigo>{{ section.name }}</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</div>
 
-{% if sections is empty %}
-    <p>Nije pronađena nijedna sekcija za planinarsko društvo {{ hikingAssociation.name }}.</p>
-{% endif %}
+
 

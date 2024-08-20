@@ -40,7 +40,7 @@ class HikingAssociationController extends BaseController
         $searchTerm = $request->get('searchTerm');
         $cityId = $request->get('city');
         $page = $request->get('page', 1);
-        $limit = 2;
+        $limit = 3;
 
         $hikingAssociationsListing = $this->hikingAssociationRepository->getHikingAssociationsListing($searchTerm, $cityId);
         $hikingAssociations = $this->paginator->paginate(

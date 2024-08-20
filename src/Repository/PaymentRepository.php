@@ -39,7 +39,8 @@ class PaymentRepository
 
     private function savePaymentFileAsAsset(HikingAssociation $hikingAssociation, UploadedFile $file, string $type): Asset
     {
-        $parent = Asset\Service::createFolderByPath('/Uplate/' . $hikingAssociation->getKey() .'/' . $type);
+        $path = sprintf('/%s/Uplate/%s', $hikingAssociation->getKey(), $type);
+        $parent = Asset\Service::createFolderByPath($path);
 
         $asset = new Asset();
         $asset->setParent($parent);
