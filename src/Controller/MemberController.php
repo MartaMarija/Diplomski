@@ -6,7 +6,6 @@ use App\FormType\MemberFormType;
 use App\Model\Member;
 use App\Repository\MemberRepository;
 use Knp\Component\Pager\PaginatorInterface;
-use Pimcore\Model\DataObject\HikingAssociation;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

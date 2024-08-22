@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\FormType\TripFilter;
 use App\Repository\CityRepository;
-use App\Repository\GuideRepository;
 use App\Repository\HikingAssociationRepository;
+use App\Service\GuideService;
 use Knp\Component\Pager\PaginatorInterface;
 use Pimcore\Model\DataObject\HikingAssociation;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +18,7 @@ class HikingAssociationController extends BaseController
     public function __construct(
         private HikingAssociationRepository $hikingAssociationRepository,
         private PaginatorInterface $paginator,
-        private GuideRepository $guideRepository,
+        private GuideService $guideService,
         private CityRepository $cityRepository,
     )
     {
@@ -115,7 +115,7 @@ class HikingAssociationController extends BaseController
             return $this->getMainFrameView($hikingAssociation);
         }
 
-        $guides = $this->guideRepository->getGuidesByHikingAssociation($hikingAssociation);
+        $guides = $this->guideService->getCachedGuidesByHikingAssociation($hikingAssociation);
 
         $htmlString = $this->renderView('hiking-association/guides.html.twig', [
             'hikingAssociation' => $hikingAssociation,
