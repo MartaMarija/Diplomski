@@ -49,6 +49,8 @@ services:
         public: true
         tags: [ 'controller.service_arguments' ]
 
+    App\Service\Payment\AbstractPaymentService:
+        abstract: true
 
     # auto-register all services as services
     App\Service\:

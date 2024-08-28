@@ -4,26 +4,28 @@ namespace App\Controller;
 
 use App\Contract\Transformer\PaymentTransformerContract;
 use App\FormType\PaymentFormType;
-use App\Repository\PaymentRepository;
-use App\Trait\PaymentTransformerTrait;
+use App\Service\Payment\MembershipPaymentService;
+use App\Service\Payment\TripPaymentService;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\HikingAssociation;
-use Pimcore\Model\DataObject\Member;
 use Pimcore\Model\DataObject\Payment;
 use Pimcore\Model\DataObject\Trip;
 use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Psr\Container\ContainerInterface;
+use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 class PaymentController extends BaseController
 {
-    use PaymentTransformerTrait;
-
     public function __construct(
-        private PaymentRepository $paymentRepository,
         private Security $security,
+        #[AutowireLocator([
+            HikingAssociation::class => MembershipPaymentService::class,
+            Trip::class => TripPaymentService::class
+        ])]
+        private ContainerInterface $handlers,
     )
     {
     }
@@ -39,17 +41,14 @@ class PaymentController extends BaseController
         $paymentObjectId = $request->get('paymentObject');
         $paymentObject = DataObject::getById($paymentObjectId);
 
-        $transformerClass = $this->transformer[$paymentObject::class];
-        /** @var PaymentTransformerContract $transformer */
-        $transformer = new $transformerClass(
-            $this->paymentRepository,
-            $paymentObject,
-            $hikingAssociation
-        );
+        /** @var PaymentTransformerContract $service */
+        $service = $this->handlers->get($paymentObject::class);
+        $service->setPaymentObject($paymentObject);
+        $service->setHikingAssociation($hikingAssociation);
 
-        $paymentDetails = $transformer->getPaymentDetails();
+        $paymentDetails = $service->getPaymentDetails();
 
-        $message = $transformer->canMemberCreatePayment($this->security->getUser());
+        $message = $service->canMemberCreatePayment($this->security->getUser());
         if (!empty($message)) {
             $htmlString = $this->renderView('payment/payment.html.twig', [
                 'hikingAssociation' => $hikingAssociation,
@@ -69,9 +68,9 @@ class PaymentController extends BaseController
             $payment->setPaymentObject($paymentObject);
             $payment->setDescription($paymentDescription);
 
-            $transformer->createPayment($payment, $form['File']->getData());
+            $service->createPayment($payment, $form['File']->getData());
 
-            return $this->respondWithSuccess(['message' => $transformer->getSuccessfulPaymentMessage()]);
+            return $this->respondWithSuccess(['message' => $service->getSuccessfulPaymentMessage()]);
         }
 
         $htmlString = $this->renderView('payment/payment.html.twig', [

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Transformer\PaymentTransformer;
+namespace App\Service\Payment;
 
 use Pimcore\Model\DataObject\Member;
 use Pimcore\Model\DataObject\Payment;
 use Pimcore\Model\DataObject\Service;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class TripPaymentTransformer extends AbstractPaymentTransformer
+class TripPaymentService extends AbstractPaymentService
 {
     /**
      * @inheritDoc
@@ -19,8 +19,9 @@ class TripPaymentTransformer extends AbstractPaymentTransformer
 
     public function createPayment(Payment $payment, ?UploadedFile $file): Payment
     {
-        $path = sprintf('/Planinarska društva/%s/Izleti/%s/Uplate',
-            $this->hikingAssociation->getKey(), $payment->getPaymentObject()->getKey()
+        $year = date('Y');
+        $path = sprintf('/Planinarska društva/%s/Izleti/%s/%s/Uplate',
+            $this->hikingAssociation->getKey(), $year, $payment->getPaymentObject()->getKey()
         );
         $payment->setParent(Service::createFolderByPath($path));
 
@@ -46,6 +47,10 @@ class TripPaymentTransformer extends AbstractPaymentTransformer
 
         if (!$this->paymentRepository->tripHasCapacity($this->paymentObject)) {
             return 'Sva mjesta za ovaj izlet su već popunjena';
+        }
+
+        if ($this->paymentObject->getStartDate() < new \DateTime()) {
+            return 'Izlet se već održao';
         }
 
         return null;

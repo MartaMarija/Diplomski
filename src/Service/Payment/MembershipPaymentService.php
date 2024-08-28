@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Transformer\PaymentTransformer;
+namespace App\Service\Payment;
 
 use Pimcore\Model\DataObject\Member;
 use Pimcore\Model\DataObject\Payment;
 use Pimcore\Model\DataObject\Service;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class MembershipPaymentTransformer extends AbstractPaymentTransformer
+class MembershipPaymentService extends AbstractPaymentService
 {
 
     /**
