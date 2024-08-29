@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Contract\Transformer\PaymentTransformerContract;
+use App\Contract\Service\PaymentServiceContract;
 use App\FormType\PaymentFormType;
 use App\Service\Payment\MembershipPaymentService;
 use App\Service\Payment\TripPaymentService;
@@ -41,7 +41,7 @@ class PaymentController extends BaseController
         $paymentObjectId = $request->get('paymentObject');
         $paymentObject = DataObject::getById($paymentObjectId);
 
-        /** @var PaymentTransformerContract $service */
+        /** @var PaymentServiceContract $service */
         $service = $this->handlers->get($paymentObject::class);
         $service->setPaymentObject($paymentObject);
         $service->setHikingAssociation($hikingAssociation);

@@ -2,12 +2,12 @@
 
 namespace App\Service\Payment;
 
-use App\Contract\Transformer\PaymentTransformerContract;
+use App\Contract\Service\PaymentServiceContract;
 use App\Repository\PaymentRepository;
 use Pimcore\Model\DataObject\HikingAssociation;
 use Pimcore\Model\DataObject\Member;
 
-abstract class AbstractPaymentService implements PaymentTransformerContract
+abstract class AbstractPaymentService implements PaymentServiceContract
 {
     protected $paymentObject;
     protected HikingAssociation $hikingAssociation;

@@ -16,6 +16,6 @@ class DefaultController extends FrontendController {
 
     public function email(): Response
     {
-        return $this->render('email/registration.html.twig');
+        return $this->render('email/trip_info.html.twig');
     }
 }

@@ -30,6 +30,9 @@
                     <p>Sva mjesta za ovaj izlet su već popunjena! (od ukupno {{ trip.availableCapacity }})</p>
                 {% endif %}
             </div>
+            <div>
+                <a class="small-button" id="send-trip-mail" href="{{ path('trips_info_mail', { 'hikingAssociation': trip.hikingAssociation.id, 'trip': trip.id }) }}">POŠALJI INFO NA EMAIL</a>
+            </div>
         </div>
 
         <div>

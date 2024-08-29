@@ -42,7 +42,7 @@ class PaymentFormType extends AbstractType
                 ],
             ])
             ->add('Submit', SubmitType::class, [
-                'label' => 'UČLANI SE',
+                'label' => 'POTVRDI',
             ])
         ;
     }

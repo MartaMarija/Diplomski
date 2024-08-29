@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Contract\Transformer;
+namespace App\Contract\Service;
 
 use Pimcore\Model\DataObject\Fieldcollection\Data\PaymentDetailsFC;
 use Pimcore\Model\DataObject\HikingAssociation;
@@ -8,7 +8,7 @@ use Pimcore\Model\DataObject\Member;
 use Pimcore\Model\DataObject\Payment;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-interface PaymentTransformerContract
+interface PaymentServiceContract
 {
     /**
      * @return ?PaymentDetailsFC[]
