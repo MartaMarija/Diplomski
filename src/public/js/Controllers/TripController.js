@@ -28,6 +28,7 @@ export class TripController extends BaseController {
 
             this.loadOpenStreetMap()
             this.loadPaymentForm()
+            this.addEmailListener()
         });
     }
 
@@ -71,6 +72,17 @@ export class TripController extends BaseController {
                     $('#payment-container').html(html)
                 }
             })
+        })
+    }
+
+    addEmailListener() {
+        $(document).on('click', '#send-trip-mail', (e) => {
+            e.preventDefault();
+            this.tripService.sendEmail(this.hikingAssociationId, this.tripId).then((response) => {
+                if (response.data.data.message) {
+                    alert(response.data.data.message)
+                }
+            });
         })
     }
 }
