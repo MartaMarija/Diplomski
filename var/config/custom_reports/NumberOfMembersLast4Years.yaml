@@ -1,0 +1,46 @@
+pimcore_custom_reports:
+    definitions:
+        NumberOfMembersLast4Years:
+            name: NumberOfMembersLast4Years
+            sql: ''
+            dataSourceConfig:
+                -
+                    sql: "SELECT\n\tCOUNT(*) as 'Broj članova',\n\tobject_Payment.Year as 'Godina'"
+                    from: "FROM\n\tobject_Payment"
+                    where: "WHERE\n\tobject_Payment.Description = 'Članarina'\n\tAND CONVERT(object_Payment.Year, UNSIGNED) >= YEAR(CURDATE()) - 3"
+                    groupby: "GROUP BY\n\tobject_Payment.Year\norder by\n\tCONVERT(object_Payment.Year, UNSIGNED) DESC"
+                    type: sql
+            columnConfiguration:
+                -
+                    name: 'Broj članova'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel535-3
+                -
+                    name: Godina
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel535-4
+            niceName: 'Number Of Members Last 4 Years'
+            group: ''
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: true
+            reportClass: ''
+            chartType: line
+            pieColumn: null
+            pieLabelColumn: null
+            xAxis: Godina
+            yAxis:
+                - 'Broj članova'
+            modificationDate: 1724985129
+            creationDate: 1724985064
+            shareGlobally: true
+            sharedUserNames: {  }
+            sharedRoleNames: {  }

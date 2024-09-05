@@ -133,6 +133,14 @@ framework:
         transports:
             main: '%env(MAILER_DSN)%'
 #            pimcore_newsletter: smtp://user:pass@smtp.example.com:port
+    messenger:
+        buses:
+            messenger.bus.default:
+        transports:
+            async: "%env(MESSENGER_TRANSPORT_DSN)%"
+        routing:
+            # async is whatever name you gave your transport above
+            'Symfony\Component\Mailer\Messenger\SendEmailMessage': async
 
 # pimcore_newsletter:
 #     default_url_prefix: 'https://my-host.com' # default prefix for your static assets

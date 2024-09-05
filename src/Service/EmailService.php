@@ -7,7 +7,7 @@ use Pimcore\Model\Document;
 
 class EmailService
 {
-    public function sendEmail(Document $document, string $to, string $subject, array $params)
+    public function sendEmail(Document $document, string $to, string $subject, array $params): void
     {
         $mail = new Mail();
 

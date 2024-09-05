@@ -20,7 +20,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1723820452,
+   'modificationDate' => 1725217777,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -363,6 +363,16 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'previewGeneratorReference' => '',
    'compositeIndices' => 
   array (
+    0 => 
+    array (
+      'index_key' => 'hiking_association_inx',
+      'index_type' => 'query',
+      'index_columns' => 
+      array (
+        0 => 'HikingAssociation__id',
+        1 => 'HikingAssociation__type',
+      ),
+    ),
   ),
    'showFieldLookup' => false,
    'propertyVisibility' => 

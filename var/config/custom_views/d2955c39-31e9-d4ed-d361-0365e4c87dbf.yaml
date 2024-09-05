@@ -1,0 +1,32 @@
+pimcore:
+    custom_views:
+        definitions:
+            d2955c39-31e9-d4ed-d361-0365e4c87dbf:
+                name: Korisnici
+                treetype: object
+                position: left
+                rootfolder: /
+                showroot: false
+                sort: 0
+                treeContextMenu:
+                    object:
+                        items:
+                            add: true
+                            addFolder: true
+                            importCsv: true
+                            cut: true
+                            copy: true
+                            paste: true
+                            delete: true
+                            rename: true
+                            reload: true
+                            publish: true
+                            unpublish: true
+                            searchAndMove: true
+                            lock: true
+                            unlock: true
+                            lockAndPropagate: true
+                            unlockAndPropagate: true
+                            changeChildrenSortBy: true
+                icon: /bundles/pimcoreadmin/img/flat-color-icons/person-circle.svg
+                classes: Member

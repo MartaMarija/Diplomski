@@ -26,7 +26,9 @@ export class TripController extends BaseController {
             let html = JSON.parse(response.data.data.html_string)
             this.replaceView(html)
 
-            this.loadOpenStreetMap()
+            if ($('#map').length) {
+                this.loadOpenStreetMap()
+            }
             this.loadPaymentForm()
             this.addEmailListener()
         });

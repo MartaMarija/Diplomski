@@ -15,7 +15,6 @@ class PaymentRepository
 {
     public function __construct(
         private Security $security,
-        private TripRepository $tripRepository,
     )
     {
     }
@@ -51,7 +50,7 @@ class PaymentRepository
         return $asset->save();
     }
 
-    public function isUserMember(?Member $member, HikingAssociation $hikingAssociation)
+    public function isUserMember(Member $member, HikingAssociation $hikingAssociation)
     {
         $queryBuilder = Db::getConnection()->createQueryBuilder();
 
@@ -77,7 +76,7 @@ class PaymentRepository
         return false;
     }
 
-    public function isMemberAppliedForTrip(?Member $member, Trip $trip)
+    public function isMemberAppliedForTrip(Member $member, Trip $trip): bool
     {
         $queryBuilder = Db::getConnection()->createQueryBuilder();
 
@@ -94,21 +93,6 @@ class PaymentRepository
 
         $result = $queryBuilder->executeQuery()->fetchOne();
 
-        if (!empty($result)) {
-            return true;
-        }
-
-        return false;
-    }
-
-    public function tripHasCapacity(Trip $trip): bool
-    {
-        $numberOfApplicants = $this->tripRepository->getNumberOfApplicantsForTrip($trip);
-
-        if ($numberOfApplicants >= $trip->getAvailableCapacity()) {
-            return false;
-        }
-
-        return true;
+        return !empty($result);
     }
 }

@@ -77,4 +77,21 @@ class TripRepository
 
         return $queryBuilder->executeQuery()->fetchOne();
     }
+
+//    public function getNumberOfApplicantsForTrip(Trip $trip): int
+//    {
+//        $queryBuilder = Db::getConnection()->createQueryBuilder();
+//
+//        $queryBuilder
+//            ->select('*')
+//            ->from('object_Payment')
+//            ->where('PaymentObject__id = :tripId')
+//            ->setParameters([
+//                'tripId' => $trip->getId()
+//            ]);
+//
+//        $results = $queryBuilder->executeQuery()->fetchAllAssociative();
+//
+//        return count($results);
+//    }
 }

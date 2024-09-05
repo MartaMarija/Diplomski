@@ -12,9 +12,11 @@
   },
   "prefer-stable": true,
   "require": {
+    "fakerphp/faker": "^1.23",
     "pimcore/admin-ui-classic-bundle": "^1.4",
     "pimcore/perspective-editor": "^1.7",
     "pimcore/pimcore": "11.2.5",
+    "pimcore/system-info-bundle": "^1.0",
     "symfony/dotenv": "^6.2",
     "symfony/form": "^7.1",
     "symfony/runtime": "^6.2"

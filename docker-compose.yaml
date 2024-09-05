@@ -51,6 +51,9 @@ services:
             PIMCORE_INSTALL_MYSQL_PORT: 3306
             PIMCORE_INSTALL_MYSQL_HOST_SOCKET: db
             PIMCORE_INSTALL_MYSQL_DATABASE: pimcore
+            PHP_MAX_EXECUTION_TIME: 500
+            PHP_MEMORY_LIMIT: '2048M'
+            PHP_FPM_PM_MAX_CHILDREN: 8
         depends_on:
             db:
                 condition: service_healthy

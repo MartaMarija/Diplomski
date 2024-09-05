@@ -1,0 +1,46 @@
+pimcore_custom_reports:
+    definitions:
+        NumberOfTripsLast12Months:
+            name: NumberOfTripsLast12Months
+            sql: ''
+            dataSourceConfig:
+                -
+                    sql: "SELECT\n    DATE_FORMAT(all_months.month, '%%Y-%%m') AS 'Godina-Mjesec',\n    (\n        SELECT\n            COUNT(*)\n        FROM\n            object_Payment\n        WHERE\n            object_Payment.Description = 'Izlet' AND\n            YEAR(FROM_UNIXTIME(object_Payment.creationDate)) = YEAR(all_months.month) AND\n            MONTH(FROM_UNIXTIME(object_Payment.creationDate)) = MONTH(all_months.month)\n            ) AS \"Broj prijava za izlet\""
+                    from: "FROM\n    (\n    SELECT\n    DATE_FORMAT(LAST_DAY(NOW() - INTERVAL (seq.month) MONTH), '%%Y-%%m-%d') AS month\n    FROM\n    (\n    SELECT\n    12 AS month\n    UNION\n    SELECT\n    11\n    UNION\n    SELECT\n    10\n    UNION\n    SELECT\n    9\n    UNION\n    SELECT\n    8\n    UNION\n    SELECT\n    7\n    UNION\n    SELECT\n    6\n    UNION\n    SELECT\n    5\n    UNION\n    SELECT\n    4\n    UNION\n    SELECT\n    3\n    UNION\n    SELECT\n    2\n    UNION\n    SELECT\n    1) seq) all_months"
+                    where: ''
+                    groupby: ''
+                    type: sql
+            columnConfiguration:
+                -
+                    name: 'Broj prijava za izlet'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel527-3
+                -
+                    name: Godina-Mjesec
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel527-4
+            niceName: 'Number Of Trips Last 12 Months'
+            group: ''
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: true
+            reportClass: ''
+            chartType: line
+            pieColumn: null
+            pieLabelColumn: null
+            xAxis: Godina-Mjesec
+            yAxis:
+                - 'Broj prijava za izlet'
+            modificationDate: 1725135725
+            creationDate: 1724984522
+            shareGlobally: true
+            sharedUserNames: {  }
+            sharedRoleNames: {  }

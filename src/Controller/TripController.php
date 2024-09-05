@@ -62,7 +62,7 @@ class TripController extends BaseController
     }
 
     #[Route('/hiking-association/{hikingAssociation}/trips/{trip}', name: 'trips_single')]
-    public function section(Request $request, Trip $trip): Response
+    public function section(Request $request, HikingAssociation $hikingAssociation, Trip $trip): Response
     {
         if (!$this->isAjaxRequest($request)) {
             return $this->getMainFrameView($trip->getHikingAssociation());
@@ -72,7 +72,8 @@ class TripController extends BaseController
 
         $htmlString = $this->renderView('trip/trip-single.html.twig', [
             'trip' => $trip,
-            'freeSpace' => $freeSpace
+            'freeSpace' => $freeSpace,
+            'hikingAssociation' => $hikingAssociation
         ]);
 
         return $this->respondWithSuccess(['html_string' => json_encode($htmlString)]);

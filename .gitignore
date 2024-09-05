@@ -49,4 +49,4 @@ nbproject
 .temp
 
 /node_modules
-./cache
+/cache/*

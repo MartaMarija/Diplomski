@@ -35,10 +35,12 @@
             </div>
         </div>
 
-        <div>
-            <div id="map" location="{{ trip.locationName }}" longitude="{{ trip.location.longitude }}" latitude="{{ trip.location.latitude }}"
-            style="height: 400px; width: 400px;"></div>
-        </div>
+        {% if trip.location is not empty %}
+            <div>
+                <div id="map" location="{{ trip.locationName }}" longitude="{{ trip.location.longitude }}" latitude="{{ trip.location.latitude }}"
+                style="height: 400px; width: 400px;"></div>
+            </div>
+        {% endif %}
     </div>
 </div>
 
